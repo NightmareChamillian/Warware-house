@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class mouseInputs : MonoBehaviour, IOnMouseDown
+public class MouseInputs : MonoBehaviour, IOnMouseDown
 {
 
     public int counter = 0;
