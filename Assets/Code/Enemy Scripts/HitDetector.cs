@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class HitDetector : MonoBehaviour, IOnBulletHit
 {
+    //The object that is hit
+    public GameObject target;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -14,9 +17,11 @@ public class HitDetector : MonoBehaviour, IOnBulletHit
 
     }
 
-    // this will be called by the bullet that collides
+    //Called by the bullet that collides with the attached object
+    //Calls the EnemyHit function of the specific object
     public void OnBulletHit(Bullet bullet)
     {
-        Debug.Log("I was hit by a bullet. I take " + bullet.damage + " damage.");
+        IEnemyHandler enemyScript = target.GetComponent<IEnemyHandler>();
+        enemyScript.EnemyHit(bullet);
     }
 }

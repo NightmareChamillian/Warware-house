@@ -1,0 +1,20 @@
+/*Interface that all scripts for enemies should implement*/
+
+using UnityEngine;
+
+public interface IEnemyHandler
+{
+    //Called whenever the enemy is spawned
+    public void Spawn(GameObject enemyObject);
+    //Sets the defensive stats for the enemy, usually called on spawn
+    public void SetDefensiveStats(int hp, int armor);
+
+    //Called when the enemy is hit
+    public void EnemyHit(Bullet bullet);
+
+    //Called when the enemy dies
+    public void EnemyDeath();
+
+    //Call to respawn the enemy
+    public void Respawn(Vector3 position, Quaternion rotation);
+}
