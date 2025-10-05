@@ -73,17 +73,17 @@ public class PlayerMove : MonoBehaviour
 
 
         //give a boost once we've passed the threshhold. this emulates momentum, but in a simpler way.
-        if(forBack > 6){
+        if(forBack > 2){
             forSpeed = 0.3f; 
         }
-        if(sideSide > 6){
+        if(sideSide > 2){
             sideSpeed = 0.3f; 
         }
         //blehhhh do it for negatives as well
-        if(forBack < 0-6){
+        if(forBack < 0-2){
             forSpeed = 0.3f; 
         }
-        if(sideSide < 0-6){
+        if(sideSide < 0-2){
             sideSpeed = 0.3f; 
         }
 

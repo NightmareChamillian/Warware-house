@@ -17,8 +17,8 @@ public class MouseInputs : MonoBehaviour, IOnMouseDown
     void Start()
     {   
 
-        //lock the cursor so we don't move out of window (but let's not for the time being)
-        //Cursor.lockState = CursorLockMode.Locked; 
+        //lock the cursor so we don't move out of window 
+        Cursor.lockState = CursorLockMode.Locked; 
     }
 
     
@@ -37,16 +37,19 @@ public class MouseInputs : MonoBehaviour, IOnMouseDown
         //Debug.Log("mouse X: " + mouseX);
         //Debug.Log("mouse Y: " + mouseY);
 
-        //up down rotation is disabled (for now) because we want it parented to the CAMERA. not the player. this will create a sense of a virtual body when the
+        //up down rotation is stinky (for now) because we want it parented to the CAMERA. not the player. this will create a sense of a virtual body when the
         //player looks down as well as stop them from turning into a hard to hit hotdog when they look straight up. generally good behavior.
         //why not have the horizontal movement also parented to the camera? partially, to stop them from looking at the back of their playerbody, but also
         //so we can get the player's angle and direction without having to do too much weird conversion stuff.
         //I'm not married to this setup btw but IMO it's the best way to do things. - Rowan
 
-        //xRotation -= mouseY;
-        //xRotation = Mathf.clamp(mouseY, 90f, 90f); //clamp the up/down movement, keeps players from breaking their virtual "necks".
+        xRotation -= mouseY;
+        xRotation = Mathf.Clamp(mouseY, -90f, 90f); //clamp the up/down movement, keeps players from breaking their virtual "necks".
 
-        yRotation += mouseX;
+        yRotation += mouseX; //Yrotation can sorta just do whatever though we don't really need to worry too much about it
+
+        transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
+
 
 
 
