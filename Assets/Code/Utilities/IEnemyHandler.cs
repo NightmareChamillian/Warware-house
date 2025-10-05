@@ -6,8 +6,6 @@ public interface IEnemyHandler
 {
     //Called whenever the enemy is spawned
     public void Spawn(GameObject enemyObject);
-    //Sets the defensive stats for the enemy, usually called on spawn
-    public void SetDefensiveStats(int hp, int armor);
 
     //Called when the enemy is hit
     public void EnemyHit(Bullet bullet);
