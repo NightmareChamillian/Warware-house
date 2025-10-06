@@ -1,73 +1,41 @@
 using UnityEngine;
 using System;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Controls;
 
-public class MouseInputs : MonoBehaviour, IOnMouseDown
+public class MouseInputs : MonoBehaviour
 {
-    public float mouseX; //up/down movement
-    public float mouseY; //left/right movement
     public float mouseSensitivity = 1; //multiplier applied to mouse movements, test before doing anything with this
     public Vector2 mouse; //vector2 used to grab the x and y components from inputsystem call
 
     float xRotation = 0;
-    float yRotation = 0;
 
-    public int mouseCounter = 0; //rudimentary counter that changes when clicks happen. Does nothing(?)
+    public GameObject playerBody;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
-    {   
-
+    {
         //lock the cursor so we don't move out of window 
-        Cursor.lockState = CursorLockMode.Locked; 
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
-    
-    void Update()
-    {
-        // Legacy Input System
-        // mouseX = Input.GetAxis("Mouse X");
-        // mouseY = Input.GetAxis("Mouse Y");
 
+    void Update() {
 
         // New Input System
         mouse = Mouse.current.delta.ReadValue();
-        mouseX = mouse.x * mouseSensitivity;
-        mouseY = mouse.y * mouseSensitivity;
+        float mouseX = mouse.x * mouseSensitivity;
+        float mouseY = mouse.y * mouseSensitivity;
 
-        //Debug.Log("mouse X: " + mouseX);
-        //Debug.Log("mouse Y: " + mouseY);
-
-        //up down rotation is stinky (for now) because we want it parented to the CAMERA. not the player. this will create a sense of a virtual body when the
-        //player looks down as well as stop them from turning into a hard to hit hotdog when they look straight up. generally good behavior.
-        //why not have the horizontal movement also parented to the camera? partially, to stop them from looking at the back of their playerbody, but also
-        //so we can get the player's angle and direction without having to do too much weird conversion stuff.
-        //I'm not married to this setup btw but IMO it's the best way to do things. - Rowan
-
+        // invert the mouse y rotation and clamp it so we dont move camera too far
         xRotation -= mouseY;
-        xRotation = Mathf.Clamp(mouseY, -90f, 90f); //clamp the up/down movement, keeps players from breaking their virtual "necks".
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
-        yRotation += mouseX; //Yrotation can sorta just do whatever though we don't really need to worry too much about it
-
-        transform.localRotation = Quaternion.Euler(xRotation, yRotation, 0f);
-
-
-
-
-
+        // apply rotations to the head and the body objects separately
+        // we do this so that the head can rotate up and down without changing body proportions
+        // and so that body will always be moving in the right direction
+        transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
+        playerBody.transform.Rotate(0, mouseX, 0);
     }
-
-    public void OnMouseDown() { //uses an Interface, has to be detailed by manager?
-        if (mouseCounter == 0)
-        {
-
-            mouseCounter = 1;
-        }
-        else
-        {
-
-            mouseCounter = 0;
-        }
-    }
-    
 
 }
