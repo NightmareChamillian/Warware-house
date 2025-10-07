@@ -5,20 +5,22 @@ using System;
 public class PlayerMove : MonoBehaviour
 {
 
-    //added to forBack/sideSide each time. in the future will be subject to change with state.
-    private float sideSpeed = 0.1f; 
-    private float forSpeed = 0.1f; 
-    public float maxWalkSpeed = 26; //what's the MOST speed we can get up to?
-    
-
-
-    //realizing we don't need these variables since we can just shove them in start()
-    //public Key forwardMapping = Key.UpArrow;
+    //movement keys
     public KeyControl forwardKey;
     public KeyControl backKey;
     public KeyControl leftKey;
     public KeyControl rightKey;
+    public KeyControl pauseKey;
+    //
 
+    public Key customMapping = Key.UpArrow;//public variable so you can see the names of new keys you want to assign
+
+    //speed variables
+    private float sideSpeed = 0.1f; 
+    private float forSpeed = 0.1f; 
+    public float maxWalkSpeed = 26; //what's the MOST speed we can get up to?
+
+    //we use these to track WASD inputs
     private bool[] nowPressed = {false,false,false,false}; //same as below but for the now
     private bool[] wasPressed = {false,false,false,false}; //W,A,S,D array we use to keep track of keys having JUST been pressed, used for stopping
 
@@ -26,6 +28,17 @@ public class PlayerMove : MonoBehaviour
     //these two values are our speed each frame.
     private float forBack = 0;
     private float sideSide = 0;
+
+
+
+    //HERE ARE ALL MOUSE VARIABLES
+
+    public float mouseSensitivity = 0.3f; //multiplier applied to mouse movements, test before doing anything with this
+    public Vector2 mouse; //vector2 used to grab the x and y components from inputsystem call
+    float vertRotation = 0; //up/down rotation, kept between frames
+    private bool takingMouseInput = true;
+    public Transform ourCamera;
+    
 
     // setup function
     void Start()
@@ -36,41 +49,20 @@ public class PlayerMove : MonoBehaviour
 
       leftKey = Keyboard.current[Key.A];
       rightKey = Keyboard.current[Key.D];
+
+      pauseKey = Keyboard.current[Key.Escape];
+
+      //lock the cursor so we don't move out of window 
+      Cursor.lockState = CursorLockMode.Locked;
     }
+
+
 
     // Update is called once per frame
     void Update()
     {
-        //check all the keycontrol objects, update our info arrays
 
-        if(forwardKey.isPressed){
-            forBack += forSpeed;
-           nowPressed[0] = true; }
-        else{
-            nowPressed[0] = false;
-        }
-
-        if(backKey.isPressed){
-            forBack -= forSpeed;
-            nowPressed[2] = true;}
-        else{
-            nowPressed[2] = false;
-        }
-
-        if(leftKey.isPressed){
-            sideSide -= sideSpeed;
-           nowPressed[1] = true;} 
-        else{
-            nowPressed[1] = false;
-        }
-
-        if(rightKey.isPressed){
-            sideSide += sideSpeed;
-           nowPressed[3] = true;} 
-        else{
-            nowPressed[3] = false;
-        }
-
+        checkKeyboardInput();
 
         //give a boost once we've passed the threshhold. this emulates momentum, but in a simpler way.
         if(forBack > 2){
@@ -116,18 +108,85 @@ public class PlayerMove : MonoBehaviour
         forBack = Mathf.Clamp(forBack, 0-maxWalkSpeed, maxWalkSpeed);
         sideSide = Mathf.Clamp(sideSide, 0-maxWalkSpeed, maxWalkSpeed);
 
+        //go through with what we've done
         executeMotion();
+
+        //if we want to move the camera, do it
+        if(takingMouseInput){
+            doMouse();}
+    }
+
+//check all the keycontrol objects, update our variables
+private void checkKeyboardInput(){
+        
+        if(pauseKey.wasReleasedThisFrame){ // don't use isPressed, since that will run for every frame the button is held
+            takingMouseInput = !takingMouseInput;
+        }
+
+        if(forwardKey.isPressed){
+            forBack += forSpeed;
+           nowPressed[0] = true; }
+        else{
+            nowPressed[0] = false;
+        }
+
+        if(backKey.isPressed){
+            forBack -= forSpeed;
+            nowPressed[2] = true;}
+        else{
+            nowPressed[2] = false;
+        }
+
+        if(leftKey.isPressed){
+            sideSide -= sideSpeed;
+           nowPressed[1] = true;} 
+        else{
+            nowPressed[1] = false;
+        }
+
+        if(rightKey.isPressed){
+            sideSide += sideSpeed;
+           nowPressed[3] = true;} 
+        else{
+            nowPressed[3] = false;
+        }
+
+}
+    //private Vector3 velocity;
+
+    private void executeMotion(){ // Check our pressed keys, move, and refresh. Doesn't do much, YET.
+
+        transform.Translate(sideSide * Time.deltaTime, 0, forBack * Time.deltaTime); //stays local to the object
+
     }
 
 
-    //private Vector3 velocity;
-
-    private void executeMotion(){ // Check our pressed keys, move, and refresh
+    private void doMouse(){
 
 
-        transform.Translate(sideSide * Time.deltaTime, 0, forBack * Time.deltaTime); //stays local to the object
-        //refreshKeys();
 
+         // New Input System
+        mouse = Mouse.current.delta.ReadValue();
+        float mouseX = mouse.x * mouseSensitivity;
+        float mouseY = mouse.y * mouseSensitivity;
+
+        // invert the mouse y rotation and clamp it so we dont move camera too far
+        vertRotation -= mouseY;
+        vertRotation = Mathf.Clamp(vertRotation, -90f, 90f);
+
+
+        
+
+        // apply rotations to the head and the body objects separately
+        // we do this so that the head can rotate up and down without changing body proportions
+        // and so that body will always be moving in the right direction
+
+        transform.Rotate(0f, mouseX, 0f);
+        ourCamera.transform.localRotation = Quaternion.Euler(vertRotation, 0f, 0f);
+        
+
+        //transform.localRotation = Quaternion.Euler(vertRotation, 0f, 0f);
+        //playerTransform.Rotate(0, mouseX, 0);
     }
 
     //depreciated since I added the waspressed and nowpressed arrays which will refresh situationally

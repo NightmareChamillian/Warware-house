@@ -624,7 +624,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b099657d17ab0f04592127a27fe0126b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  customMapping: 63
   maxWalkSpeed: 26
+  mouseSensitivity: 0.3
+  mouse: {x: 0, y: 0}
+  ourCamera: {fileID: 330585546}
 --- !u!1001 &707541530
 PrefabInstance:
   m_ObjectHideFlags: 0
