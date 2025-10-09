@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
  * It is stationary and has no attack.
  * It respawns immediately upon death.
  */
-public class TestTarget : MonoBehaviour, IEnemyHandler
+public class TestTarget : MonoBehaviour, IEnemyHandler, IOnBulletHit
 {
     //The physical game object in the scene
     public GameObject testTarget;
@@ -46,7 +46,7 @@ public class TestTarget : MonoBehaviour, IEnemyHandler
     }
     //Calculates Test Target's health after a bullet hit
     //If health reaches 0, calls EnemyDeath()
-    public void EnemyHit(Bullet bullet)
+    public void OnBulletHit(Bullet bullet)
     {
         Debug.Log("Test Target was hit by a bullet. It took " + bullet.damage + " - " + armor + " damage.");
         health -= (int)bullet.damage - armor;

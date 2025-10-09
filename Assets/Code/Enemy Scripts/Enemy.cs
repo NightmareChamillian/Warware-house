@@ -1,29 +1,27 @@
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+// DEFAULT ENEMY CLASS! we will extend this for our enemies
+// this is just so that we have a base class for stats and save on rewriting code
+public class Enemy : MonoBehaviour, IOnBulletHit
 {
-    public GameObject weapon;
-    WeaponController weaponController;
-
-    float lastShotTime;
-    float interval = 1f;
+    public int health = 100;
+    public int armor = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        lastShotTime = Time.timeSinceLevelLoad;
-        weaponController = weapon.GetComponent<WeaponController>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        // simple timer. if the current time is 'interval' seconds past the last time we shot, shoot again and reset timer
-        if (Time.timeSinceLevelLoad >= lastShotTime + interval)
-        {
-            weaponController.Shoot();
 
-            lastShotTime = Time.timeSinceLevelLoad;
-        }
+    }
+
+    // default implementation for getting shot. subtract health by armor - bullet damage
+    public void OnBulletHit(Bullet bullet)
+    {
+        health -= bullet.damage - armor;
     }
 }
