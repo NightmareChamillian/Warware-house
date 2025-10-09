@@ -10,7 +10,7 @@ public class PlayerMove : MonoBehaviour
     public KeyControl backKey;
     public KeyControl leftKey;
     public KeyControl rightKey;
-    public KeyControl pauseKey;
+    
     //
 
     public Key customMapping = Key.UpArrow;//public variable so you can see the names of new keys you want to assign
@@ -31,13 +31,7 @@ public class PlayerMove : MonoBehaviour
 
 
 
-    //HERE ARE ALL MOUSE VARIABLES
-
-    public float mouseSensitivity = 0.3f; //multiplier applied to mouse movements, test before doing anything with this
-    public Vector2 mouse; //vector2 used to grab the x and y components from inputsystem call
-    float vertRotation = 0; //up/down rotation, kept between frames
-    private bool takingMouseInput = true;
-    public Transform ourCamera;
+    
     
 
     // setup function
@@ -50,7 +44,7 @@ public class PlayerMove : MonoBehaviour
       leftKey = Keyboard.current[Key.A];
       rightKey = Keyboard.current[Key.D];
 
-      pauseKey = Keyboard.current[Key.Escape];
+      
 
       //lock the cursor so we don't move out of window 
       Cursor.lockState = CursorLockMode.Locked;
@@ -111,17 +105,14 @@ public class PlayerMove : MonoBehaviour
         //go through with what we've done
         executeMotion();
 
-        //if we want to move the camera, do it
-        if(takingMouseInput){
-            doMouse();}
+        
+
     }
 
 //check all the keycontrol objects, update our variables
 private void checkKeyboardInput(){
         
-        if(pauseKey.wasReleasedThisFrame){ // don't use isPressed, since that will run for every frame the button is held
-            takingMouseInput = !takingMouseInput;
-        }
+
 
         if(forwardKey.isPressed){
             forBack += forSpeed;
@@ -161,33 +152,7 @@ private void checkKeyboardInput(){
     }
 
 
-    private void doMouse(){
-
-
-
-         // New Input System
-        mouse = Mouse.current.delta.ReadValue();
-        float mouseX = mouse.x * mouseSensitivity;
-        float mouseY = mouse.y * mouseSensitivity;
-
-        // invert the mouse y rotation and clamp it so we dont move camera too far
-        vertRotation -= mouseY;
-        vertRotation = Mathf.Clamp(vertRotation, -90f, 90f);
-
-
-        
-
-        // apply rotations to the head and the body objects separately
-        // we do this so that the head can rotate up and down without changing body proportions
-        // and so that body will always be moving in the right direction
-
-        transform.Rotate(0f, mouseX, 0f);
-        ourCamera.transform.localRotation = Quaternion.Euler(vertRotation, 0f, 0f);
-        
-
-        //transform.localRotation = Quaternion.Euler(vertRotation, 0f, 0f);
-        //playerTransform.Rotate(0, mouseX, 0);
-    }
+    
 
     //depreciated since I added the waspressed and nowpressed arrays which will refresh situationally
 

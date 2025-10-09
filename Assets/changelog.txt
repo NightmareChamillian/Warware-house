@@ -1,3 +1,6 @@
-10/9: Adds ADS slowdown, player kinematic integration
+10/9: 
+All "mouse" inputs scripts for the player are now in playerAttack.cs
+Mouse sensitivity reduced, players can now use the secondary click to toggle "aim" mode which reduces it even further
+
 
 10/7: Implements mouse camera movement
