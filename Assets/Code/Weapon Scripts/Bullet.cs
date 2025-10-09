@@ -7,7 +7,7 @@ public class Bullet : MonoBehaviour
     public float speed = 50;
     public float lifetime = 10;
 
-    public float damage = 5;
+    public int damage = 5;
 
     Vector3 currentPos;
 

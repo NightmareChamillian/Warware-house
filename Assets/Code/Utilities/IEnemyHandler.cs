@@ -7,9 +7,6 @@ public interface IEnemyHandler
     //Called whenever the enemy is spawned
     public void Spawn(GameObject enemyObject);
 
-    //Called when the enemy is hit
-    public void EnemyHit(Bullet bullet);
-
     //Called when the enemy dies
     public void EnemyDeath();
 
