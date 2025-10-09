@@ -1,0 +1,3 @@
+10/9: Adds ADS slowdown, player kinematic integration
+
+10/7: Implements mouse camera movement
