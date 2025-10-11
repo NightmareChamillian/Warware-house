@@ -9,13 +9,18 @@ public class Bullet : MonoBehaviour
 
     public int damage = 5;
 
+    public DamageInfo projDamInfo; //small class containing all the information to be passed to health system. can see class in utilities folder.
+    public GameObject ourOrigin; //eventually this should be a reference to the ORIGINATOR for daminfo purposes. right now daminfo origin isnt used so blehhhhhh
+
     Vector3 currentPos;
 
     // bullet has a lifespan, will die after reaching it. prevents memory leaks if a bullet doesnt collide
     float timeLeft;
 
     void Start()
-    {
+    {   
+        //DamageInfo projDamInfo = new DamageInfo(damage, 0, gameObject);
+        //Debug.Log("Created new Daminfo class " + projDamInfo.damageAmount);
         timeLeft = lifetime;
         currentPos = transform.position;
     }
@@ -45,7 +50,8 @@ public class Bullet : MonoBehaviour
         if (Physics.Raycast(currentPos, direction.normalized, out hit, distance))
         {
             IOnBulletHit otherScript = hit.collider.gameObject.GetComponent<IOnBulletHit>();
-            otherScript?.OnBulletHit(this);
+            //we have to create a new damageinfo object here, as any instance variables we send get set to null on destruction
+            otherScript?.OnBulletHit(new DamageInfo(damage, 0, ourOrigin)); 
             Destroy(gameObject);
             return;
         }
