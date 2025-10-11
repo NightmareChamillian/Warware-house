@@ -127,9 +127,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   customMapping: 63
   maxWalkSpeed: 5
-  mouseSensitivity: 0.3
-  mouse: {x: 0, y: 0}
-  ourCamera: {fileID: 8965624752646598538}
 --- !u!114 &8455169227483276965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -142,6 +139,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4997baa07ecf44757a05618bd6ac224e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  mouseSensitivity: 0.2
+  mouse: {x: 0, y: 0}
+  ourCamera: {fileID: 4661261514026362715}
   weapon: {fileID: 7379304038663219053}
 --- !u!1 &1367460802387903882
 GameObject:
@@ -170,8 +170,8 @@ Transform:
   m_GameObject: {fileID: 1367460802387903882}
   serializedVersion: 2
   m_LocalRotation: {x: -0.01791934, y: 0.6843126, z: -0.019082157, w: 0.7287188}
-  m_LocalPosition: {x: 0.70000005, y: -0.7899999, z: 1}
-  m_LocalScale: {x: 252.37996, y: 252.38, z: 252.37994}
+  m_LocalPosition: {x: 0.98, y: -0.78, z: 0.84}
+  m_LocalScale: {x: 200, y: 200, z: 200}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 7845590720765271298}
