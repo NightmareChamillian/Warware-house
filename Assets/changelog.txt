@@ -1,3 +1,12 @@
+10/11:
+Created DamageInfo class for universalizing passed damage information
+Created IHealthInterface class for universal healthholders
+Created HealthGeneric class for basic health behavior
+Bullets now use DamageInfo
+onBulletHit now passes the Damageinfo, not the bullet
+Weapons now have a field for their user, which will pass said user to any damage/bullets created. Framework for hitnumbers/kill tracking.
+Test target now uses all parts of new damage system, please note that functionality is ONLY for armor.
+
 10/9: 
 All "mouse" inputs scripts for the player are now in playerAttack.cs
 Mouse sensitivity reduced, players can now use the secondary click to toggle "aim" mode which reduces it even further

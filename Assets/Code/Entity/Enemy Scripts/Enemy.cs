@@ -2,7 +2,7 @@ using UnityEngine;
 
 // DEFAULT ENEMY CLASS! we will extend this for our enemies
 // this is just so that we have a base class for stats and save on rewriting code
-public class Enemy : MonoBehaviour, IOnBulletHit
+public class Enemy : MonoBehaviour//, IOnBulletHit
 {
     public int health = 100;
     public int armor = 0;
@@ -20,8 +20,9 @@ public class Enemy : MonoBehaviour, IOnBulletHit
     }
 
     // default implementation for getting shot. subtract health by armor - bullet damage
-    public void OnBulletHit(Bullet bullet)
-    {
-        health -= bullet.damage - armor;
-    }
+    // this should be updated to use the new health system-- check docs/changelog for more info
+    // public void OnBulletHit(DamageInfo info)
+    // {
+    //     health -= bullet.damage - armor;
+    // }
 }

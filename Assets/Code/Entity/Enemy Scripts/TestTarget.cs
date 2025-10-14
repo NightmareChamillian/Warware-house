@@ -13,14 +13,17 @@ public class TestTarget : MonoBehaviour, IEnemyHandler, IOnBulletHit
     //The prefab used for spawning
     public GameObject testTargetPrefab;
 
-    //Dies when hp hits 0
-    private int health;
-    //Reduce all damage taken by armor
-    private int armor;
+    //old code VVVVVV
+    // //Dies when hp hits 0
+    // private int health;
+    // //Reduce all damage taken by armor
+    // private int armor;
+
+    private HealthGeneric healthHolder;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
-    {
+    {   
         Spawn(testTarget);
     }
 
@@ -32,27 +35,34 @@ public class TestTarget : MonoBehaviour, IEnemyHandler, IOnBulletHit
     //Assigns the testObject parameter to the testTarget variable.
     //Then sets the Test Target's defensive stats
     public void Spawn(GameObject testObject)
-    {
+    {   
+
+        
         testTarget = testObject;
-        SetDefensiveStats(40, 1);
+        //SetDefensiveStats(40, 1);
+        healthHolder = new HealthGeneric(20, 1);
         Debug.Log("Test Target is at position " + transform.position);
     }
     //Sets the Test Target's health and armor
-    public void SetDefensiveStats(int hp, int arm)
-    {
-        health = hp;
-        armor = arm;
-        Debug.Log("Initialized defensive stats. Test Target has " + health + " health and " + armor + " armor.");
-    }
+    // public void SetDefensiveStats(int hp, int arm)
+    // {
+    //     health = hp;
+    //     armor = arm;
+    //     Debug.Log("Initialized defensive stats. Test Target has " + health + " health and " + armor + " armor.");
+    // }
     //Calculates Test Target's health after a bullet hit
     //If health reaches 0, calls EnemyDeath()
-    public void OnBulletHit(Bullet bullet)
-    {
-        Debug.Log("Test Target was hit by a bullet. It took " + bullet.damage + " - " + armor + " damage.");
-        health -= (int)bullet.damage - armor;
-        Debug.Log("Test Target has " + health + " health left.");
-        if(health <= 0)
-        {
+    public void OnBulletHit(DamageInfo info)
+    {   
+
+        
+        Debug.Log("Target hit!" + info.damageAmount);
+        bool damResult = healthHolder.takeDamage(info);
+
+        // // Debug.Log("Test Target was hit by a bullet. It took " + bullet.damage + " - " + armor + " damage.");
+        // // health -= (int)bullet.damage - armor;
+        // // Debug.Log("Test Target has " + health + " health left.");
+         if(damResult) {
             EnemyDeath();
         }
     }
@@ -62,11 +72,13 @@ public class TestTarget : MonoBehaviour, IEnemyHandler, IOnBulletHit
         Destroy(testTarget);
         Debug.Log("Test Target Died");
         Respawn(transform.position + 2*transform.right, transform.rotation);
+
     }
     //Spawns ta new Test Target prefab, then calls the new Test Target's Spawn function
     //and assigns its testTarget variable to the new object
     public void Respawn(Vector3 position, Quaternion rotation)
-    {
+    {   
+        healthHolder.setHealthAndArmor(40, 1);
         GameObject newTestTarget = Instantiate(testTargetPrefab, position, rotation);
         Debug.Log("Test Target Respawned at position " + position);
         TestTarget newTargetScript = newTestTarget.GetComponent<TestTarget>();

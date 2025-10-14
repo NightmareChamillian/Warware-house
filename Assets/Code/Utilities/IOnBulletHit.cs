@@ -1,3 +1,3 @@
 public interface IOnBulletHit{
-    public void OnBulletHit(Bullet bullet);
+    public void OnBulletHit(DamageInfo info);
 }
