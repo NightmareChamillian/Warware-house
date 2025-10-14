@@ -19,7 +19,7 @@ public class PlayerHealth : MonoBehaviour
 
     void Update()
     {
-        currentHP -= .01;
+        currentHP -= .1;
         filledBar.fillAmount = (float)(currentHP / maxHP);
         filledBar.color = healthColorGradient.Evaluate(filledBar.fillAmount);
     }
