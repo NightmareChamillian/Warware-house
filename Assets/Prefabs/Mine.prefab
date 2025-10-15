@@ -267,6 +267,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 3
   armor: 0
+  explosionRadius: 5
+  explosionForce: 500
+  damage: 40
 --- !u!1 &6351187875474904401
 GameObject:
   m_ObjectHideFlags: 0

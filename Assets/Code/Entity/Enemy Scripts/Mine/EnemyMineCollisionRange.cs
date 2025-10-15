@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class RangeHandler : MonoBehaviour
+public class EnemyMineCollisionRange : MonoBehaviour
 {
     public GameObject parent;
     EnemyMine mine;
@@ -15,12 +15,11 @@ public class RangeHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log("entered");
         mine.Detonate();
     }
 }
