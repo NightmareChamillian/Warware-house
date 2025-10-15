@@ -238,6 +238,32 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4dc22110fdac4267824f30c426e35d1, type: 3}
+--- !u!1 &569306990 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2550463727306718371, guid: 34db9319c8a3d4c0bb8e1600d677ac25, type: 3}
+  m_PrefabInstance: {fileID: 1917955910}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &569306994
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 569306990}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.19999999, y: 0.29999992, z: 0.009999998}
+  m_Center: {x: 0, y: -2.220446e-18, z: -0.004999999}
 --- !u!1 &939814702
 GameObject:
   m_ObjectHideFlags: 0
@@ -416,11 +442,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c47f95357442f49629de610b49b1a2f0, type: 3}
---- !u!4 &1091708986 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4661261514026362715, guid: 4122da28c228340a59b6bd0f18ca6add, type: 3}
-  m_PrefabInstance: {fileID: 2672686868584677475}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1214264363
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -888,7 +909,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2550463727306718371, guid: 34db9319c8a3d4c0bb8e1600d677ac25, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 569306994}
   m_SourcePrefab: {fileID: 100100000, guid: 34db9319c8a3d4c0bb8e1600d677ac25, type: 3}
 --- !u!1001 &550741270994109585
 PrefabInstance:
@@ -1003,10 +1027,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8455169227483276965, guid: 4122da28c228340a59b6bd0f18ca6add, type: 3}
-      propertyPath: ourCamera
-      value: 
-      objectReference: {fileID: 1091708986}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
