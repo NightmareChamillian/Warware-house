@@ -1,16 +1,16 @@
 public interface IHealthInterface{
 
-    public bool takeDamage(DamageInfo incomingDam);
+    public bool TakeDamage(DamageInfo incomingDam);
 
-    public double getHealth();
+    public double GetHealth();
 
-    public double getArmor();
+    public double GetArmor();
 
-    public void setHealth(double newHealth);
+    public void SetHealth(double newHealth);
 
-    public void setArmor(double newArmor);
+    public void SetArmor(double newArmor);
 
-    public void setHealthAndArmor(double newHealth, double newArmor);
+    public void SetHealthAndArmor(double newHealth, double newArmor);
 
     
 

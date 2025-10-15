@@ -26,7 +26,7 @@ public class HealthGeneric : MonoBehaviour, IHealthInterface
     }
 
 
-    public bool takeDamage(DamageInfo incomingDam){ //take damage, and return true if it was lethal
+    public bool TakeDamage(DamageInfo incomingDam){ //take damage, and return true if it was lethal
 
         Debug.Log("An object has taken " + incomingDam.damageAmount + " Damage!");
         ourHealth -= incomingDam.damageAmount;
@@ -37,23 +37,23 @@ public class HealthGeneric : MonoBehaviour, IHealthInterface
         return false;
     }
 
-    public double getHealth(){
+    public double GetHealth(){
         return ourHealth;
     }
 
-    public double getArmor(){
+    public double GetArmor(){
         return ourArmor;
     }
 
-    public void setHealth(double newHealth){
+    public void SetHealth(double newHealth){
         ourHealth = newHealth;
     }
 
-    public void setArmor(double newArmor){
+    public void SetArmor(double newArmor){
         ourArmor = newArmor;
     }
 
-    public void setHealthAndArmor(double newHealth, double newArmor){
+    public void SetHealthAndArmor(double newHealth, double newArmor){
         ourHealth = newHealth;
         ourArmor = newArmor;
     }
