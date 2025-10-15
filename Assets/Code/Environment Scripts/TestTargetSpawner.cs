@@ -12,7 +12,7 @@ public class TestTargetSpawner : MonoBehaviour
     //Test Target in the scene
     public GameObject testTarget;
 
-    private IEnemyHandler testTargetScript;
+    private TestTarget testTargetScript;
 
     //ISpawnpoints script attached to the room. Contains all the spawnpoints for the room
     private ISpawnpoints spawnpointsScript;
@@ -28,7 +28,7 @@ public class TestTargetSpawner : MonoBehaviour
     {
         spawnpointsScript = GetComponent<ISpawnpoints>();
         spawnpoints = spawnpointsScript.getSpawnpoints();
-        testTargetScript = testTarget.GetComponent<IEnemyHandler>();
+        testTargetScript = testTarget.GetComponent<TestTarget>();
         SpawnEnemies();
     }
 
@@ -54,6 +54,13 @@ public class TestTargetSpawner : MonoBehaviour
         for (int i = 0; i < dangerLevel && i < spawnpointsCopy.Length; i++)
         {
             Debug.Log("Spawning enemy at " + spawnpointsCopy[i]);
+            //This next line is not working
+            /*
+             * NullReferenceException: Object reference not set to an instance of an object
+TestTarget.Respawn (UnityEngine.Vector3 position, UnityEngine.Quaternion rotation) (at Assets/Code/Entity/Enemy Scripts/TestTarget.cs:81)
+TestTargetSpawner.SpawnEnemies () (at Assets/Code/Environment Scripts/TestTargetSpawner.cs:58)
+TestTargetSpawner.Start () (at Assets/Code/Environment Scripts/TestTargetSpawner.cs:32)
+             */
             testTargetScript.Respawn(spawnpointsCopy[i], Quaternion.identity);
             
         }
