@@ -69,9 +69,10 @@ public class TestTarget : MonoBehaviour, IEnemyHandler, IOnBulletHit
     //Destroys the Test Target, COMMENTED OUT (then calls Respawn with position x+2)
     public void EnemyDeath()
     {
-        Destroy(testTarget);
+        
         Debug.Log("Test Target Died");
         Respawn(transform.position + 2*transform.right, transform.rotation);
+        Destroy(testTarget);
 
     }
     //Spawns ta new Test Target prefab, then calls the new Test Target's Spawn function
@@ -81,8 +82,8 @@ public class TestTarget : MonoBehaviour, IEnemyHandler, IOnBulletHit
         healthHolder.SetHealthAndArmor(40, 1);
         GameObject newTestTarget = Instantiate(testTargetPrefab, position, rotation);
         Debug.Log("Test Target Respawned at position " + position);
-        TestTarget newTargetScript = newTestTarget.GetComponent<TestTarget>();
-        newTargetScript.Spawn(newTestTarget);
+        //TestTarget newTargetScript = newTestTarget.GetComponent<TestTarget>();
+        //newTargetScript.Spawn(newTestTarget);
     }
 
     

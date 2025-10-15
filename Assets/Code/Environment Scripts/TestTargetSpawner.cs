@@ -9,10 +9,12 @@ using UnityEngine;
  */
 public class TestTargetSpawner : MonoBehaviour
 {
-    //Test Target in the scene
-    public GameObject testTarget;
+    //Test Target in the scene (Deprecated)
+    //public GameObject testTarget;
+    //private TestTarget testTargetScript;
 
-    private TestTarget testTargetScript;
+    //Prefab to be instantiated
+    public GameObject testTargetPrefab;
 
     //ISpawnpoints script attached to the room. Contains all the spawnpoints for the room
     private ISpawnpoints spawnpointsScript;
@@ -28,8 +30,7 @@ public class TestTargetSpawner : MonoBehaviour
     {
         spawnpointsScript = GetComponent<ISpawnpoints>();
         spawnpoints = spawnpointsScript.getSpawnpoints();
-        testTargetScript = testTarget.GetComponent<TestTarget>();
-        SpawnEnemies();
+        //testTargetScript = testTarget.GetComponent<TestTarget>();
     }
 
     // Update is called once per frame
@@ -61,7 +62,10 @@ TestTarget.Respawn (UnityEngine.Vector3 position, UnityEngine.Quaternion rotatio
 TestTargetSpawner.SpawnEnemies () (at Assets/Code/Environment Scripts/TestTargetSpawner.cs:58)
 TestTargetSpawner.Start () (at Assets/Code/Environment Scripts/TestTargetSpawner.cs:32)
              */
-            testTargetScript.Respawn(spawnpointsCopy[i], Quaternion.identity);
+            //testTargetScript.Respawn(spawnpointsCopy[i], Quaternion.identity);
+
+            //This line works
+            GameObject newTestTarget = Instantiate(testTargetPrefab, spawnpointsCopy[i], Quaternion.identity);
             
         }
     }
