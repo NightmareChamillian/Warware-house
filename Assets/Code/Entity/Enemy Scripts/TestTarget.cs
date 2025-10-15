@@ -66,7 +66,7 @@ public class TestTarget : MonoBehaviour, IEnemyHandler, IOnBulletHit
             EnemyDeath();
         }
     }
-    //Destroys the Test Target, then calls Respawn with position x+2
+    //Destroys the Test Target, COMMENTED OUT (then calls Respawn with position x+2)
     public void EnemyDeath()
     {
         Destroy(testTarget);
