@@ -1,9 +1,12 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 /*
  * This spawner serves as a template to test room spawners with just the TestTarget
- * Implements random spawning in a room's spawnpoints up to a set number. 
+ * Implements random spawning in a room's spawnpoints up to a set number.
+ * Implements destroying all remaining objects.
  * Does not implement random enemy selection or accessing danger levels.
  * Does not implement accessing IEnemyHandlers modularly
  */
@@ -25,12 +28,15 @@ public class TestTargetSpawner : MonoBehaviour
     //Hardcoded for now. Would be a variable number according to the player's level.
     private int dangerLevel = 2;
 
+    private List<GameObject> spawnedTargets;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         spawnpointsScript = GetComponent<ISpawnpoints>();
         spawnpoints = spawnpointsScript.getSpawnpoints();
         //testTargetScript = testTarget.GetComponent<TestTarget>();
+        spawnedTargets = new List<GameObject>();
     }
 
     // Update is called once per frame
@@ -66,7 +72,23 @@ TestTargetSpawner.Start () (at Assets/Code/Environment Scripts/TestTargetSpawner
 
             //This line works
             GameObject newTestTarget = Instantiate(testTargetPrefab, spawnpointsCopy[i], Quaternion.identity);
-            
+            spawnedTargets.Add(newTestTarget);
+        }
+    }
+
+    /*
+     * Deletes all enemies spawned by SpawnEnemies()
+     * Does not account for any targets not created by this class yet.
+     */
+    public void DeleteEnemies()
+    {
+        Debug.Log("Called DeleteEnemies");
+        foreach(GameObject target in spawnedTargets)
+        {
+            if (target != null)
+            {
+                Destroy(target);
+            }
         }
     }
 
