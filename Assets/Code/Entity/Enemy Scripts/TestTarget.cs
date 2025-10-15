@@ -57,7 +57,7 @@ public class TestTarget : MonoBehaviour, IEnemyHandler, IOnBulletHit
 
         
         Debug.Log("Target hit!" + info.damageAmount);
-        bool damResult = healthHolder.takeDamage(info);
+        bool damResult = healthHolder.TakeDamage(info);
 
         // // Debug.Log("Test Target was hit by a bullet. It took " + bullet.damage + " - " + armor + " damage.");
         // // health -= (int)bullet.damage - armor;
@@ -78,7 +78,7 @@ public class TestTarget : MonoBehaviour, IEnemyHandler, IOnBulletHit
     //and assigns its testTarget variable to the new object
     public void Respawn(Vector3 position, Quaternion rotation)
     {   
-        healthHolder.setHealthAndArmor(40, 1);
+        healthHolder.SetHealthAndArmor(40, 1);
         GameObject newTestTarget = Instantiate(testTargetPrefab, position, rotation);
         Debug.Log("Test Target Respawned at position " + position);
         TestTarget newTargetScript = newTestTarget.GetComponent<TestTarget>();
