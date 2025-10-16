@@ -57,7 +57,7 @@ public class TestTarget : MonoBehaviour, IEnemyHandler, IOnBulletHit
 
         
         Debug.Log("Target hit!" + info.damageAmount);
-        bool damResult = healthHolder.takeDamage(info);
+        bool damResult = healthHolder.TakeDamage(info);
 
         // // Debug.Log("Test Target was hit by a bullet. It took " + bullet.damage + " - " + armor + " damage.");
         // // health -= (int)bullet.damage - armor;
@@ -66,23 +66,24 @@ public class TestTarget : MonoBehaviour, IEnemyHandler, IOnBulletHit
             EnemyDeath();
         }
     }
-    //Destroys the Test Target, then calls Respawn with position x+2
+    //Destroys the Test Target, COMMENTED OUT (then calls Respawn with position x+2)
     public void EnemyDeath()
     {
-        Destroy(testTarget);
+        
         Debug.Log("Test Target Died");
         Respawn(transform.position + 2*transform.right, transform.rotation);
+        Destroy(testTarget);
 
     }
     //Spawns ta new Test Target prefab, then calls the new Test Target's Spawn function
     //and assigns its testTarget variable to the new object
     public void Respawn(Vector3 position, Quaternion rotation)
     {   
-        healthHolder.setHealthAndArmor(40, 1);
+        healthHolder.SetHealthAndArmor(40, 1);
         GameObject newTestTarget = Instantiate(testTargetPrefab, position, rotation);
         Debug.Log("Test Target Respawned at position " + position);
-        TestTarget newTargetScript = newTestTarget.GetComponent<TestTarget>();
-        newTargetScript.Spawn(newTestTarget);
+        //TestTarget newTargetScript = newTestTarget.GetComponent<TestTarget>();
+        //newTargetScript.Spawn(newTestTarget);
     }
 
     
