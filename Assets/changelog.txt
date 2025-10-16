@@ -1,3 +1,5 @@
+10/16:
+oh god oh fuck version control moment
 10/11:
 Created DamageInfo class for universalizing passed damage information
 Created IHealthInterface class for universal healthholders
