@@ -4,7 +4,7 @@ using UnityEngine;
 // this is just so that we have a base class for stats and save on rewriting code
 public class Enemy : MonoBehaviour//, IOnBulletHit
 {
-    public int health = 100;
+    public double health = 100;
     public int armor = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

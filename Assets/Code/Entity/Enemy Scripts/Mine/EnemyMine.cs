@@ -1,7 +1,10 @@
+using System.Xml;
 using UnityEngine;
 
-public class EnemyMine : Enemy
+public class EnemyMine : Enemy, IOnBulletHit
 {
+    public double mineHeatlh = 5;
+
 
     public float explosionRadius = 5f;
     public float explosionForce = 500f;
@@ -11,7 +14,7 @@ public class EnemyMine : Enemy
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        health = mineHeatlh;
     }
 
     // Update is called once per frame
@@ -37,10 +40,37 @@ public class EnemyMine : Enemy
 
             // if the target implements ionbullethit then do damage to it
             IOnBulletHit target = nearby.gameObject.GetComponent<IOnBulletHit>();
-            target?.OnBulletHit(new DamageInfo(damage, 0, gameObject));
 
-            // delete the mine (change later when we add explosion)
-            Destroy(gameObject);
+            // make sure that we dont hit this mine and crash the game with infinite recursion : )
+            if (nearby.gameObject == gameObject)
+            {
+                continue;
+            }
+            target?.OnBulletHit(new DamageInfo(damage, 0, gameObject));
+  
+        }
+        
+        // delete the mine (change later when we add explosion effect)
+        Destroy(gameObject);
+    }
+
+    public void OnBulletHit(DamageInfo damageInfo)
+    {
+        health -= damageInfo.damageAmount;
+
+        // explode if shot enough
+        if (health <= 0)
+        {
+            Detonate();
+        }
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        // check if the thing entering the radius is an entity, then explode
+        if (other.gameObject.GetComponent<Entity>() != null)
+        {
+            Detonate();
         }
     }
 }

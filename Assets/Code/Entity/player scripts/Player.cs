@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player : MonoBehaviour, IOnBulletHit
+public class Player : Entity, IOnBulletHit
 {
     public double health;
 

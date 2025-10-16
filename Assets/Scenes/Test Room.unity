@@ -738,6 +738,57 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &918793060 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 941340131356953297, guid: 4122da28c228340a59b6bd0f18ca6add, type: 3}
+  m_PrefabInstance: {fileID: 2672686868584677475}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &918793068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 918793060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fbb12f01d6f193459432dbc74dd532b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  filledBar: {fileID: 0}
+  healthColorGradient:
+    serializedVersion: 2
+    key0: {r: 1, g: 1, b: 1, a: 1}
+    key1: {r: 1, g: 1, b: 1, a: 1}
+    key2: {r: 0, g: 0, b: 0, a: 0}
+    key3: {r: 0, g: 0, b: 0, a: 0}
+    key4: {r: 0, g: 0, b: 0, a: 0}
+    key5: {r: 0, g: 0, b: 0, a: 0}
+    key6: {r: 0, g: 0, b: 0, a: 0}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 65535
+    ctime2: 0
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 65535
+    atime2: 0
+    atime3: 0
+    atime4: 0
+    atime5: 0
+    atime6: 0
+    atime7: 0
+    m_Mode: 0
+    m_ColorSpace: -1
+    m_NumColorKeys: 2
+    m_NumAlphaKeys: 2
+  minHP: 0
+  maxHP: 100
+  currentHP: 100
 --- !u!1 &939814702
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,6 +910,32 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
+--- !u!1 &958471373 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5299424191583012367, guid: be57ab1eb77474f60ab1a632a5c1b529, type: 3}
+  m_PrefabInstance: {fileID: 7430707530677843825}
+  m_PrefabAsset: {fileID: 0}
+--- !u!135 &958471376
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 958471373}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.66
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &991237963 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7416554552942750688, guid: 34db9319c8a3d4c0bb8e1600d677ac25, type: 3}
@@ -2009,7 +2086,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 941340131356953297, guid: 4122da28c228340a59b6bd0f18ca6add, type: 3}
+      insertIndex: 7
+      addedObject: {fileID: 918793068}
   m_SourcePrefab: {fileID: 100100000, guid: 4122da28c228340a59b6bd0f18ca6add, type: 3}
 --- !u!1001 &5934897093922901460
 PrefabInstance:
@@ -2116,14 +2196,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5154886159000373659, guid: be57ab1eb77474f60ab1a632a5c1b529, type: 3}
+      propertyPath: m_Radius
+      value: 0.74
+      objectReference: {fileID: 0}
     - target: {fileID: 5299424191583012367, guid: be57ab1eb77474f60ab1a632a5c1b529, type: 3}
       propertyPath: m_Name
       value: Mine
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6351187875474904401, guid: be57ab1eb77474f60ab1a632a5c1b529, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5299424191583012367, guid: be57ab1eb77474f60ab1a632a5c1b529, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 958471376}
   m_SourcePrefab: {fileID: 100100000, guid: be57ab1eb77474f60ab1a632a5c1b529, type: 3}
 --- !u!1001 &9130813650229068698
 PrefabInstance:
