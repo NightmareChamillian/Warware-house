@@ -32,9 +32,10 @@ public class PlayerMove : MonoBehaviour
     private float forBack = 0;
     private float sideSide = 0;
 
+    //kinematic variables
     private Rigidbody playerbody;
     private Vector3 playerVel; //reference to current velocity, grabbed at the start of every cycle and updated at the end in executemotion()
-    
+    public float fric = 1; //used in, get this, friction calculations 
     
 
     // setup function
@@ -110,8 +111,8 @@ public class PlayerMove : MonoBehaviour
 
         //go through with what we've done
         calcMotion();
-        //handleFriction();
         executeMotion();
+        handleFriction();
 
         
 
@@ -161,7 +162,38 @@ private void checkKeyboardInput(){
         //     playerbody.AddForce(new Vector3(0, 0, 100), );//linearVelocity = ;
         // }
        
-        playerVel = new Vector3(sideSide * Time.deltaTime * 60, 0, forBack * Time.deltaTime * 60);
+        playerVel = new Vector3(sideSide * Time.deltaTime * 800, 0, forBack * Time.deltaTime * 800);
+
+
+
+    }
+    //handle friction, affect the rigidbody's speed directly. uses Sylphstream-like calculations, which are in turn based off source-like calculations, which are in turn based off quake code
+    void handleFriction(){
+        float playerSpeed = playerbody.linearVelocity.magnitude; //current speed of player. we don't ever actually change this, just use it as a quick reference.
+
+        if(playerSpeed <= 0){ //player doesn't have speed, return early
+            return;
+        }
+
+        float stopSpeed = 10; // value we scale speed by to apply friction. if too high, won't work, if too low, will severely limit speed
+        float speedFactor = 1; //how much do we want the player speed to be factored in? called control in most quakelike calculations.
+
+        if(playerSpeed > stopSpeed){
+            speedFactor = playerSpeed / stopSpeed;
+        }
+
+        float drop = fric * Time.deltaTime * speedFactor; //calculate a drop in speed based on how fast we're going, our universal friction, and delta time
+        float newSpeed = playerSpeed - drop; //our new ideal speed
+
+        if(newSpeed < 0){
+            newSpeed = 0; //don't ever acheive negative speed from friction
+        }
+
+        if(newSpeed != playerSpeed){
+            newSpeed /= playerSpeed; //get proportion of old speed we're using
+        }
+
+        playerbody.linearVelocity *= newSpeed; //scale player's true speed by said value
 
     }
 
