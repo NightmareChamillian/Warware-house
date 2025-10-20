@@ -750,7 +750,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 918793060}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 376d8c64624b68d4d8a220589be1c171, type: 3}
   m_Name: 
@@ -1310,6 +1310,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 12723402}
+    - target: {fileID: 6182891047498717092, guid: 9380b33cf0024419182744e46d1b1115, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8014766576039403126, guid: 9380b33cf0024419182744e46d1b1115, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.3537717
@@ -2012,11 +2016,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3532386180036170904, guid: 4122da28c228340a59b6bd0f18ca6add, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.664
+      value: 1.38
       objectReference: {fileID: 0}
     - target: {fileID: 3532386180036170904, guid: 4122da28c228340a59b6bd0f18ca6add, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -13.79
+      value: -9.64
       objectReference: {fileID: 0}
     - target: {fileID: 3532386180036170904, guid: 4122da28c228340a59b6bd0f18ca6add, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2053,6 +2057,14 @@ PrefabInstance:
     - target: {fileID: 4041658579594223721, guid: 4122da28c228340a59b6bd0f18ca6add, type: 3}
       propertyPath: m_FOVAxisMode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6270251830842119069, guid: 4122da28c228340a59b6bd0f18ca6add, type: 3}
+      propertyPath: m_UseGravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6270251830842119069, guid: 4122da28c228340a59b6bd0f18ca6add, type: 3}
+      propertyPath: m_IsKinematic
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
