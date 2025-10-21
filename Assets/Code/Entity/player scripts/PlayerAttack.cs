@@ -89,8 +89,8 @@ public class PlayerAttack : MonoBehaviour
         // we do this so that the head can rotate up and down without changing body proportions
         // and so that body will always be moving in the right direction
 
-        transform.Rotate(0f, mouseX, 0f);
-        ourCamera.transform.localRotation = Quaternion.Euler(vertRotation, 0f, 0f);
+        transform.Rotate(0f, mouseX, 0f); //body traverses left/right
+        ourCamera.transform.localRotation = Quaternion.Euler(vertRotation, 0f, 0f); //camera moves up/down
         
     }
 }

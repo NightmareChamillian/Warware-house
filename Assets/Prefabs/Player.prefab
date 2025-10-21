@@ -127,7 +127,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbea1c58b22694d2981cf71d86503aa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 100
+  healthHolder: {fileID: 0}
 --- !u!114 &7441828169344345025
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,7 +141,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   customMapping: 63
-  maxWalkSpeed: 5
+  defaultSpeed: 1
+  speedThresh: 18
+  speedThreshBuff: 2
+  maxWalkSpeed: 20
+  walkSpeedMult: 1
+  playerCam: {fileID: 4661261514026362715}
+  fric: 30
+  stopSpeed: 40
+  speedFactor: 1
 --- !u!114 &8455169227483276965
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -16,31 +16,38 @@ public class PlayerMove : MonoBehaviour
     public Key customMapping = Key.UpArrow;//public variable so you can see the names of new keys you want to assign
 
     //speed variables
-    private float defSpeed = 1f; //default starting speed
+    public float defaultSpeed = 1f; //default starting speed. sidespeed and forspeed get set to this.
     private float sideSpeed = 1f; 
     private float forSpeed = 1f; 
-    private float speedThresh = 6f; //threshhold required to give an agility bonus
-    private float speedBonus = 2f; //agility bonus
+    public float speedThresh = 20f; //threshhold required to give an agility bonus
+    public float speedThreshBuff = 3f; //agility bonus
     public float maxWalkSpeed = 26; //what's the MOST speed we can get up to?
+    public float walkSpeedMult = 75; //speed buff per frame
 
     //we use these to track WASD inputs
     private bool[] nowPressed = {false,false,false,false}; //same as below but for the now
     private bool[] wasPressed = {false,false,false,false}; //W,A,S,D array we use to keep track of keys having JUST been pressed, used for stopping
 
-
-    //these two values are our speed each frame.
+    //these two values are our acculmulated "input"ness each frame.
     private float forBack = 0;
     private float sideSide = 0;
 
-    //kinematic variables
+    //references for kinematic calculations
     private Rigidbody playerbody;
+    public Transform playerCam;
     private Vector3 playerVel; //reference to current velocity, grabbed at the start of every cycle and updated at the end in executemotion()
-    public float fric = 1; //used in, get this, friction calculations 
-    
+
+    //friction values
+    public float fric = 10; //used in, get this, friction calculations 
+    public float stopSpeed = 40; // value we scale speed by to apply friction. if too high, won't work, if too low, will severely limit speed
+    public float speedFactor = 1; //how much do we want the player speed to be factored in? called control in most quakelike calculations.
 
     // setup function
     void Start()
     {
+
+        sideSpeed = defaultSpeed;
+        forSpeed = defaultSpeed;
         //assign all our keycontrols
       forwardKey = Keyboard.current[Key.W];
       backKey = Keyboard.current[Key.S];
@@ -54,6 +61,7 @@ public class PlayerMove : MonoBehaviour
       Cursor.lockState = CursorLockMode.Locked;
 
       playerbody = gameObject.GetComponent<Rigidbody>();
+      
     }
 
 
@@ -61,23 +69,22 @@ public class PlayerMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //playerVel = gameObject.GetComponent<Rigidbody>().linearVelocity; I thought I wanted this but I actually didn't
-
+        
         checkKeyboardInput();
 
         //give a boost once we've passed the threshhold. this emulates momentum, but in a simpler way.
         if(forBack > speedThresh){
-            forSpeed = speedBonus; 
+            forSpeed = speedThreshBuff; 
         }
         if(sideSide > speedThresh){
-            sideSpeed = speedBonus; 
+            sideSpeed = speedThreshBuff; 
         }
         //blehhhh do it for negatives as well
         if(forBack < speedThresh){
-            forSpeed = speedBonus; 
+            forSpeed = speedThreshBuff; 
         }
         if(sideSide < speedThresh){
-            sideSpeed = speedBonus; 
+            sideSpeed = speedThreshBuff; 
         }
 
 
@@ -86,14 +93,14 @@ public class PlayerMove : MonoBehaviour
         if(wasPressed[0] || wasPressed[2]){ //forwards back
             if(!(nowPressed[0] || nowPressed[2])){ //gotta love demorgansing boolean statements
                 forBack = 0;
-                forSpeed = defSpeed; 
+                forSpeed = defaultSpeed; 
             }
         }
 
         if(wasPressed[1] || wasPressed[3]){ //and again for side-side
             if(!(nowPressed[1] || nowPressed[3])){ 
                 sideSide = 0;
-                sideSpeed = defSpeed;
+                sideSpeed = defaultSpeed;
             }
         }
 
@@ -161,9 +168,25 @@ private void checkKeyboardInput(){
         //     Debug.Log("Attempting to move forwards with rigidbody.");
         //     playerbody.AddForce(new Vector3(0, 0, 100), );//linearVelocity = ;
         // }
-       
-        playerVel = new Vector3(sideSide * Time.deltaTime * 800, 0, forBack * Time.deltaTime * 800);
 
+        //this produces a vector that gives WASD movement relative to the world coords.
+        playerVel = transform.forward * forBack + transform.right * sideSide;
+            
+            
+//            sideSide * Time.deltaTime * walkSpeedMult, 0,  * Time.deltaTime * walkSpeedMult);
+
+       //what we need to do is factor in where the player's facing to this new playerVel vector.
+       // float rotationAmount = Mathf.Rad2Deg * gameObject.transform.rotation.y;
+        //Debug.Log(rotationAmount);
+       //playerVel = Quaternion.AngleAxis(rotationAmount, Vector3.down) * playerVel; //well use quarternion.angleaxis for this, around the vert axis
+
+
+        //sourcelike calculations but I didn't want to do full sourcelike so scrapping them blehhhh
+        // Vector3 forwardVec = Vector3.Cross(Vector3.forward, -gameObject.transform.right);
+        // Vector3 sideVec = Vector3.Cross(Vector3.forward, forwardVec);
+        
+        // Vector3 wishDir = forBack * forwardVec + sideSide * sideVec;
+        // playerVel = wishDir; //will this work? no idea!
 
 
     }
@@ -174,9 +197,6 @@ private void checkKeyboardInput(){
         if(playerSpeed <= 0){ //player doesn't have speed, return early
             return;
         }
-
-        float stopSpeed = 10; // value we scale speed by to apply friction. if too high, won't work, if too low, will severely limit speed
-        float speedFactor = 1; //how much do we want the player speed to be factored in? called control in most quakelike calculations.
 
         if(playerSpeed > stopSpeed){
             speedFactor = playerSpeed / stopSpeed;
