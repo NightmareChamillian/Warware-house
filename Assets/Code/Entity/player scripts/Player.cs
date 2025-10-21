@@ -2,12 +2,15 @@ using UnityEngine;
 
 public class Player : Entity, IOnBulletHit
 {
-    public double health;
+    public HealthGeneric healthHolder;
+    // public double health;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        double maxHP = 100, maxArmor = 3;
+        healthHolder = gameObject.GetComponent<HealthGeneric>();
+        healthHolder.SetHealthAndArmor(maxHP, maxArmor);
     }
 
     // Update is called once per frame
@@ -18,8 +21,19 @@ public class Player : Entity, IOnBulletHit
 
     public void OnBulletHit(DamageInfo damageInfo)
     {
-        health -= damageInfo.damageAmount;
-        Debug.Log("health is " + health.ToString());
+        /* AJ: testing out new health system */
+        healthHolder.TakeDamage(damageInfo);
+
+        // if (healthHolder.GetHealth() <= 0)
+        // {
+        //     Debug.Log("Player Died! Game Over :(");
+        // }
+        
         return;
+
+        /* AJ: old health */
+        // health -= damageInfo.damageAmount;
+        // Debug.Log("health is " + health.ToString());
+        // return;
     }
 }

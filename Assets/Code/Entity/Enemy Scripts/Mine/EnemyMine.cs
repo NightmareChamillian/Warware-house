@@ -39,14 +39,14 @@ public class EnemyMine : Enemy, IOnBulletHit
             }
 
             // if the target implements ionbullethit then do damage to it
-            IOnBulletHit target = nearby.gameObject.GetComponent<IOnBulletHit>();
+            IOnBulletHit target = nearby.gameObject.GetComponent<IOnBulletHit>(); 
 
             // make sure that we dont hit this mine and crash the game with infinite recursion : )
             if (nearby.gameObject == gameObject)
             {
                 continue;
             }
-            target?.OnBulletHit(new DamageInfo(damage, 0, gameObject));
+            target?.OnBulletHit(new DamageInfo(damage, 0, gameObject)); //deal our damage of generic type
   
         }
         
