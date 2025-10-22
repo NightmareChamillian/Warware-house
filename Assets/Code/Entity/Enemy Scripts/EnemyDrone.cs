@@ -69,7 +69,7 @@ public class EnemyDrone : Enemy
             }
         }
         // changing the location
-        transform.Translate(moveDirection.x * Time.deltaTime * MovementSpeed, moveDirection.y * Time.deltaTime * MovementSpeed, moveDirection.y * Time.deltaTime * MovementSpeed);
+        transform.position = transform.position + new Vector3(moveDirection.x * Time.deltaTime * MovementSpeed, moveDirection.y * Time.deltaTime * MovementSpeed, moveDirection.y * Time.deltaTime * MovementSpeed);
     }
 
     // lowk expensive asf

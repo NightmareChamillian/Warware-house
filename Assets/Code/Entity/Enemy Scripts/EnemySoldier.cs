@@ -63,12 +63,12 @@ public class EnemySoldier : Enemy
             }
             else
             {
-                float angle = UnityEngine.Random.Range(0f, 2 * (float)Math.PI);
-                moveDirection = new Vector2((float)Math.Cos(angle), (float)Math.Sin(angle));
+                float angle = UnityEngine.Random.Range(0f, 2 * Mathf.PI);
+                moveDirection = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
             }
         }
         // changing the location
-        transform.Translate(moveDirection.x * Time.deltaTime * MovementSpeed, 0, moveDirection.y * Time.deltaTime * MovementSpeed);
+        transform.position = transform.position + new Vector3(moveDirection.x * Time.deltaTime * MovementSpeed, 0, moveDirection.y * Time.deltaTime * MovementSpeed);
     }
 
     // lowk expensive asf
