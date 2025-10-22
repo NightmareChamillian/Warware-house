@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,7 +16,9 @@ public class HealthBar : MonoBehaviour
     void Start()
     {
         maxHP = 100;
-        healthHolder = gameObject.GetComponentInParent<HealthGeneric>();
+
+        // retrieves health holder from player object
+        healthHolder = transform.parent.parent.GetComponent<HealthGeneric>();
     }
 
     /*
