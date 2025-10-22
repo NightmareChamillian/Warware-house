@@ -893,6 +893,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   armor: 0
+  ENEMY_NAME: UNNAMED ENEMY
+  dangerLevel: 1
+  enemyObject: {fileID: 0}
   weapon: {fileID: 1355743726}
   player: {fileID: 12723402}
   obstructionMask:
@@ -2219,6 +2222,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   armor: 0
+  ENEMY_NAME: UNNAMED ENEMY
+  dangerLevel: 1
+  enemyObject: {fileID: 0}
   weapon: {fileID: 183378147}
   player: {fileID: 12723402}
   obstructionMask:
