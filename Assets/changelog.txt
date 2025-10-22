@@ -1,3 +1,18 @@
+10/22 (Martin):
+Created my own scene with just the Room and Player (error free, no health ui, no player getting hit interactions).
+Updated Enemy class. 
+Updated EnemyTurret to match the Enemy class and set the player variable.
+Moved Enemy prefab to deprecated. Replaced with Turret Enemy, which has a collider and can be destroyed.
+Moved IEnemyHandler to deprecated. Enemy class will be used instead.
+Moved Test Target Prefab to deprecated. Replaced with Generic Enemy.
+Moved TestTarget script to deprecated.
+Moved all TestTarget spawner files to deprecated. Replaced with EnemySpawners.
+EnemySpawner added and generalized to all Enemy children.
+Created a Room prefab that had TestTarget spawner buttons. Moved it to deprecated.
+Added a prefab Room that has EnemySpawner buttons.
+
+TODO: Update other Enemy child classes
+
 10/16:
 oh god oh fuck version control moment
 10/11:

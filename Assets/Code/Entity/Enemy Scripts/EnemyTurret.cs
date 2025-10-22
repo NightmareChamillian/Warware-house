@@ -18,14 +18,32 @@ public class EnemyTurret : Enemy
     public LayerMask obstructionMask;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    new void Start()
     {
+        //Initialized values for the turret
+        health = 20;
+        armor = 0;
+        ENEMY_NAME = "Turret Enemy";
+        dangerLevel = 2;
+        //Set the player value
+        GameObject playerObject = GameObject.Find("Player");
+        if(playerObject != null )
+        {
+            player = playerObject.transform;
+        }
+        else
+        {
+            Debug.Log("playerObject not found");
+        }
+            //Call parent Spawn
+            base.Start();
+        //Turret specific code
         lastShotTime = Time.timeSinceLevelLoad;
         weaponController = weapon.GetComponent<WeaponController>();
     }
 
     // Update is called once per frame
-    void Update()
+    new void Update()
     {        
         // if turret can see player, then turn towards player and shoot
         if (CanSeePlayer())
@@ -61,5 +79,11 @@ public class EnemyTurret : Enemy
             return hit.transform == player;
         }
         return false;
+    }
+
+    public override int GetDangerLevel()
+    {
+        //Hardcoded for now since I can't figure out how to override the variable outside of a function
+        return 2;
     }
 }

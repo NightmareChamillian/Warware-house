@@ -2,27 +2,80 @@ using UnityEngine;
 
 // DEFAULT ENEMY CLASS! we will extend this for our enemies
 // this is just so that we have a base class for stats and save on rewriting code
-public class Enemy : MonoBehaviour//, IOnBulletHit
+public class Enemy : MonoBehaviour, IOnBulletHit
 {
+    //Default variables for an enemy who doesn't initialize their own.
     public double health = 100;
-    public int armor = 0;
+    public double armor = 0;
+    public string ENEMY_NAME = "UNNAMED ENEMY";
+    public int dangerLevel = 1;
+
+    //The physical game object of the enemy in the scene 
+    public GameObject enemyObject;
+
+    //The prefab used for spawning
+    //public GameObject enemyObjectPrefab;
+
+
+    private HealthGeneric healthHolder;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public void Start()
     {
-
+        Spawn();
     }
 
     // Update is called once per frame
-    void Update()
+    public void Update()
     {
 
     }
 
-    // default implementation for getting shot. subtract health by armor - bullet damage
-    // this should be updated to use the new health system-- check docs/changelog for more info
-    // public void OnBulletHit(DamageInfo info)
-    // {
-    //     health -= bullet.damage - armor;
-    // }
+    //Sets the enemy's starting to values
+    public void Spawn()
+    {
+        enemyObject = gameObject;
+        healthHolder = new HealthGeneric(health, armor);
+        Debug.Log(ENEMY_NAME + " is at position " + transform.position);
+    }
+
+    //Called whenever the enemy is hit by a bullet
+    //Calculates Test Target's health after a bullet hit
+    //If health reaches 0, calls EnemyDeath()
+    public void OnBulletHit(DamageInfo info)
+    {
+        Debug.Log(ENEMY_NAME + " hit for " + info.damageAmount + " damage. " +
+            "It has " + healthHolder.GetHealth() + " health left");
+        bool damResult = healthHolder.TakeDamage(info);
+        if (damResult)
+        {
+            EnemyDeath();
+        }
+    }
+
+    public void EnemyDeath()
+    {
+        Debug.Log(ENEMY_NAME + " Died");
+        Destroy(enemyObject);
+    }
+
+    public double GetHealth()
+    {
+        return health;
+    }
+
+    public double GetArmor()
+    {
+        return armor;
+    }
+
+    public string GetName()
+    {
+        return ENEMY_NAME;
+    }
+
+    public virtual int GetDangerLevel()
+    {
+        return dangerLevel;
+    }
 }
