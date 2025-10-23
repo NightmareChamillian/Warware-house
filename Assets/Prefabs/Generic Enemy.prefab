@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7411744209047512550}
   - component: {fileID: 9031640111577297361}
   - component: {fileID: 6136199633207528600}
+  - component: {fileID: 4836951652492498392}
   m_Layer: 0
   m_Name: Generic Enemy
   m_TagString: Untagged
@@ -116,7 +117,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
+  armor: 0
+  ENEMY_NAME: UNNAMED ENEMY
+  dangerLevel: 1
   enemyObject: {fileID: 3155236427702166974}
+--- !u!114 &4836951652492498392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3155236427702166974}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 376d8c64624b68d4d8a220589be1c171, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6054702174940932752
 PrefabInstance:
   m_ObjectHideFlags: 0

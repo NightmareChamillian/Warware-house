@@ -18,6 +18,7 @@ public class Enemy : MonoBehaviour, IOnBulletHit
 
 
     private HealthGeneric healthHolder;
+    //public HealthGeneric healthHolder;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void Start()
@@ -35,7 +36,9 @@ public class Enemy : MonoBehaviour, IOnBulletHit
     public void Spawn()
     {
         enemyObject = gameObject;
-        healthHolder = new HealthGeneric(health, armor);
+        //healthHolder = new HealthGeneric(health, armor);
+        healthHolder = gameObject.GetComponent<HealthGeneric>();
+        healthHolder.SetHealthAndArmor(health, armor);
         Debug.Log(ENEMY_NAME + " is at position " + transform.position);
     }
 

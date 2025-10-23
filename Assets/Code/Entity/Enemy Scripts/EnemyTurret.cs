@@ -7,7 +7,8 @@ public class EnemyTurret : Enemy
     WeaponController weaponController;
 
     // this will assigned by some other script at some point when enemy is spawned
-    public Transform player;
+    //public Transform player;
+    private Transform player;
 
     // used for controlling how fast the turret fires. interval is how many seconds btw shots
     float lastShotTime;
@@ -35,8 +36,8 @@ public class EnemyTurret : Enemy
         {
             Debug.Log("playerObject not found");
         }
-            //Call parent Spawn
-            base.Start();
+        //Call parent Spawn
+        base.Start();
         //Turret specific code
         lastShotTime = Time.timeSinceLevelLoad;
         weaponController = weapon.GetComponent<WeaponController>();
