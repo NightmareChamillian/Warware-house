@@ -41,7 +41,7 @@ public class EnemyDrone : Enemy
             Vector3 direction = (player.position - transform.position).normalized;
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, direction.y, direction.z));
             // quaternion lerp smoothly rotates towards the player
-            transform.rotation = Quaternion.Lerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+            weapon.transform.rotation = Quaternion.Lerp(weapon.transform.rotation, lookRotation, Time.deltaTime * 5f);
 
             // simple cooldown for shooting. check if it has been 'interval' seconds since last shot
             if (Time.time >= lastShotTime + interval)
