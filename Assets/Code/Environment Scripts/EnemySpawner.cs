@@ -20,7 +20,7 @@ public class EnemySpawner : MonoBehaviour
     private Vector3[] spawnpoints;
 
     //Hardcoded for now. Would be a variable number according to the player's level.
-    private int playerLevel = 4;
+    private int playerLevel = 8;
 
     //Keeps track of all spawned enemies
     private List<GameObject> spawnedEnemies;

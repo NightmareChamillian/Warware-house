@@ -8,7 +8,7 @@ public class EnemyTurret : Enemy
 
     // this will assigned by some other script at some point when enemy is spawned
     //public Transform player;
-    private Transform player;
+    //private Transform player;
 
     // used for controlling how fast the turret fires. interval is how many seconds btw shots
     float lastShotTime;
@@ -27,6 +27,7 @@ public class EnemyTurret : Enemy
         ENEMY_NAME = "Turret Enemy";
         dangerLevel = 2;
         //Set the player value
+        /*
         GameObject playerObject = GameObject.Find("Player");
         if(playerObject != null )
         {
@@ -36,6 +37,7 @@ public class EnemyTurret : Enemy
         {
             Debug.Log("playerObject not found");
         }
+        */
         //Call parent Spawn
         base.Start();
         //Turret specific code

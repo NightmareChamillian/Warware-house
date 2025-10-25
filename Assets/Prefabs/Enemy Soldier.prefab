@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 2913020711441493132}
   - component: {fileID: 361742610990913085}
   - component: {fileID: 3825590476871014247}
+  - component: {fileID: -6416953420267040512}
   m_Layer: 0
   m_Name: Enemy Soldier
   m_TagString: Untagged
@@ -140,8 +141,10 @@ MonoBehaviour:
   ENEMY_NAME: UNNAMED ENEMY
   dangerLevel: 1
   enemyObject: {fileID: 0}
-  weapon: {fileID: 8413928786108492278}
+  playerObject: {fileID: 0}
   player: {fileID: 0}
+  healthHolder: {fileID: 0}
+  weapon: {fileID: 8413928786108492278}
   obstructionMask:
     serializedVersion: 2
     m_Bits: 0
@@ -195,6 +198,18 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-6416953420267040512
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7050066181540089452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 376d8c64624b68d4d8a220589be1c171, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8413928786108492278
 GameObject:
   m_ObjectHideFlags: 0

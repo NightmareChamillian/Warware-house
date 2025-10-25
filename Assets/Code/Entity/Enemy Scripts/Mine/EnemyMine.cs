@@ -12,13 +12,13 @@ public class EnemyMine : Enemy, IOnBulletHit
     public double damage = 40f;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    new void Start()
     {
         health = mineHeatlh;
     }
 
     // Update is called once per frame
-    void Update()
+    new void Update()
     {
 
     }
@@ -54,7 +54,7 @@ public class EnemyMine : Enemy, IOnBulletHit
         Destroy(gameObject);
     }
 
-    public void OnBulletHit(DamageInfo damageInfo)
+    new public void OnBulletHit(DamageInfo damageInfo)
     {
         health -= damageInfo.damageAmount;
 

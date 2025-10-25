@@ -1,3 +1,8 @@
+10/24 (Martin):
+Updated EnemyDrone and EnemySoldier.
+Added Enemy Drone and Enemy Soldier to Enemy Spawner.
+Cleared EnemyMine of warnings.
+
 10/22 (Martin):
 Created my own scene with just the Room and Player (error free, no health ui, no player getting hit interactions).
 Updated Enemy class. 
@@ -10,8 +15,6 @@ Moved all TestTarget spawner files to deprecated. Replaced with EnemySpawners.
 EnemySpawner added and generalized to all Enemy children.
 Created a Room prefab that had TestTarget spawner buttons. Moved it to deprecated.
 Added a prefab Room that has EnemySpawner buttons.
-
-TODO: Update other Enemy child classes
 
 10/16:
 oh god oh fuck version control moment

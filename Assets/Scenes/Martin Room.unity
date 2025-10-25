@@ -305,6 +305,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5182408920511685256, guid: 37b4776312dbafb4a85ea47ff1f877c3, type: 3}
+      propertyPath: enemyPrefabs.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5182408920511685256, guid: 37b4776312dbafb4a85ea47ff1f877c3, type: 3}
+      propertyPath: 'enemyPrefabs.Array.data[3]'
+      value: 
+      objectReference: {fileID: 7050066181540089452, guid: af8450e821a47eb4b95db20c7f1c17a7, type: 3}
     - target: {fileID: 7365239391454056703, guid: 37b4776312dbafb4a85ea47ff1f877c3, type: 3}
       propertyPath: m_Name
       value: Room (EnemySpawner Buttons)

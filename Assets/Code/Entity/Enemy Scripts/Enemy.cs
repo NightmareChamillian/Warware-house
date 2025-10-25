@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour, IOnBulletHit
 {
     //Default variables for an enemy who doesn't initialize their own.
-    public double health = 100;
+    public double health = 25;
     public double armor = 0;
     public string ENEMY_NAME = "UNNAMED ENEMY";
     public int dangerLevel = 1;
@@ -13,11 +13,15 @@ public class Enemy : MonoBehaviour, IOnBulletHit
     //The physical game object of the enemy in the scene 
     public GameObject enemyObject;
 
+    //The player object and their position
+    public GameObject playerObject;
+    public Transform player;
+
     //The prefab used for spawning
     //public GameObject enemyObjectPrefab;
 
 
-    private HealthGeneric healthHolder;
+    public HealthGeneric healthHolder;
     //public HealthGeneric healthHolder;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -40,6 +44,16 @@ public class Enemy : MonoBehaviour, IOnBulletHit
         healthHolder = gameObject.GetComponent<HealthGeneric>();
         healthHolder.SetHealthAndArmor(health, armor);
         Debug.Log(ENEMY_NAME + " is at position " + transform.position);
+        //Set the player value
+        playerObject = GameObject.Find("Player");
+        if (playerObject != null)
+        {
+            player = playerObject.transform;
+        }
+        else
+        {
+            Debug.Log("playerObject not found");
+        }
     }
 
     //Called whenever the enemy is hit by a bullet
@@ -47,9 +61,9 @@ public class Enemy : MonoBehaviour, IOnBulletHit
     //If health reaches 0, calls EnemyDeath()
     public void OnBulletHit(DamageInfo info)
     {
+        bool damResult = healthHolder.TakeDamage(info);
         Debug.Log(ENEMY_NAME + " hit for " + info.damageAmount + " damage. " +
             "It has " + healthHolder.GetHealth() + " health left");
-        bool damResult = healthHolder.TakeDamage(info);
         if (damResult)
         {
             EnemyDeath();

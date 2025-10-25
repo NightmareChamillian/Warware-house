@@ -8,7 +8,7 @@ public class EnemySoldier : Enemy
     WeaponController weaponController;
 
     // this will assigned by some other script at some point when enemy is spawned
-    public Transform player;
+    //public Transform player;
 
     // used for controlling how fast the turret fires. interval is how many seconds btw shots
     float lastShotTime;
@@ -25,14 +25,32 @@ public class EnemySoldier : Enemy
     private Vector2 moveDirection = new Vector2(0, 0);
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    new void Start()
     {
+        //Initialized values for the drone
+        health = 15;
+        armor = 0;
+        ENEMY_NAME = "Soldier Enemy";
+        dangerLevel = 3;
+        //Set the player value
+        /*
+        GameObject playerObject = GameObject.Find("Player");
+        if (playerObject != null)
+        {
+            player = playerObject.transform;
+        }
+        else
+        {
+            Debug.Log("playerObject not found");
+        }*/
+        //Call parent Spawn
+        base.Start();
         lastShotTime = Time.timeSinceLevelLoad;
         weaponController = weapon.GetComponent<WeaponController>();
     }
 
     // Update is called once per frame
-    void Update()
+    new void Update()
     {
         // if turret can see player, then turn towards player and shoot
         if (CanSeePlayer())
@@ -85,5 +103,11 @@ public class EnemySoldier : Enemy
             return hit.transform == player;
         }
         return false;
+    }
+
+    public override int GetDangerLevel()
+    {
+        //Hardcoded for now since I can't figure out how to override the variable outside of a function
+        return 3;
     }
 }
