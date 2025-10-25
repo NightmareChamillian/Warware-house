@@ -2,7 +2,10 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Controls;
 using System;
-public class PlayerMove : MonoBehaviour
+public class playerMoveSimple : MonoBehaviour 
+
+
+//variant of playermove without summation on movements
 {
 
     //movement keys
@@ -17,14 +20,14 @@ public class PlayerMove : MonoBehaviour
     public Key customMapping = Key.UpArrow;//public variable so you can see the names of new keys you want to assign
 
     //speed variables
-    public float defaultSpeed = 0.2f; //default starting speed. sidespeed and forspeed get set to this.
-    private float sideSpeed = 1f; //really not necessary to have these separate but might as well keep the option there
+    private float defaultSpeed = 5f; //default starting speed. sidespeed and forspeed get set to this.
+    private float sideSpeed = 1f; 
     private float forSpeed = 1f; 
-    //public float speedThresh = 10f; //threshhold required to give an agility bonus
-    //public float speedThreshBuff = 1f; //agility bonus
-    public float maxWalkAmt = 20; //what's the MOST speed we can get up to?
-    //public float walkSpeedMult = 5; //speed buff per frame
-    public float maxSpeed = 15f; //max speed. in mystery Unity units
+    public float speedThresh = 10f; //threshhold required to give an agility bonus
+    public float speedThreshBuff = 1f; //agility bonus
+    public float maxWalkSpeed = 5; //what's the MOST speed we can get up to?
+    public float walkSpeedMult = 5; //speed buff per frame
+    public float maxSpeed = 20f;
 
     //we use these to track WASD inputs
     private bool[] nowPressed = {false,false,false,false}; //same as below but for the now
@@ -102,20 +105,20 @@ public class PlayerMove : MonoBehaviour
 
 
 
-        //check to see if we WERE pressing a movement key and no longer are. This will "break" any speed we've acculmulated and reset the values.
-        if(wasPressed[0] || wasPressed[2]){ //forwards back
-            if(!(nowPressed[0] || nowPressed[2])){ //gotta love demorgan's-ing boolean statements
-                forBack = 0;
-                
-            }
-        }
+        //check to see if we WERE pressing a movement key and no longer are. This will "break" any speed we've acculmulated.
+        // if(wasPressed[0] || wasPressed[2]){ //forwards back
+        //     if(!(nowPressed[0] || nowPressed[2])){ //gotta love demorgansing boolean statements
+        //         forBack = 0;
+        //         //forSpeed = defaultSpeed; 
+        //     }
+        // }
 
-        if(wasPressed[1] || wasPressed[3]){ //and again for side-side
-            if(!(nowPressed[1] || nowPressed[3])){ 
-                sideSide = 0;
-                
-            }
-        }
+        // if(wasPressed[1] || wasPressed[3]){ //and again for side-side
+        //     if(!(nowPressed[1] || nowPressed[3])){ 
+        //         sideSide = 0;
+        //         //sideSpeed = defaultSpeed;
+        //     }
+        // }
 
 
         //update our wasPressed array for next frame
@@ -142,9 +145,9 @@ public class PlayerMove : MonoBehaviour
         }
 
 
-        //finally, clamp our movement. this does little right now but will be very important later when we have things like sprinting/aiming/crouching movespeed modifiers
-        forBack = Mathf.Clamp(forBack, 0-maxWalkAmt, maxWalkAmt);
-        sideSide = Mathf.Clamp(sideSide, 0-maxWalkAmt, maxWalkAmt);
+        // //finally, clamp our movement. this does little right now but will be very important later when we have things like sprinting/aiming/crouching movespeed modifiers
+        // forBack = Mathf.Clamp(forBack, 0-maxWalkSpeed, maxWalkSpeed);
+        // sideSide = Mathf.Clamp(sideSide, 0-maxWalkSpeed, maxWalkSpeed);
 
         if(! onFloorThisFrame){ //if we're not touching the floor, don't give maneuverability. this does still do minor "input" calcs which can sort of be abused
                                 // but it REALLY doesn't offer too much extra movement so I'm leaving it
@@ -162,31 +165,34 @@ public class PlayerMove : MonoBehaviour
 //check all the keycontrol objects, update our variables
 private void checkKeyboardInput(){
         
-
+        forBack = 0;
+        sideSide = 0;
 
         if(forwardKey.isPressed){
-            forBack += forSpeed* Time.deltaTime * 60;
+            forBack = defaultSpeed;
+        
            nowPressed[0] = true; }
         else{
             nowPressed[0] = false;
         }
 
         if(backKey.isPressed){
-            forBack -= forSpeed * Time.deltaTime * 60;
+            forBack = -defaultSpeed;
+        
             nowPressed[2] = true;}
         else{
             nowPressed[2] = false;
         }
 
         if(leftKey.isPressed){
-            sideSide -= sideSpeed* Time.deltaTime * 60;
+            sideSide = -defaultSpeed;
            nowPressed[1] = true;} 
         else{
             nowPressed[1] = false;
         }
 
         if(rightKey.isPressed){
-            sideSide += sideSpeed* Time.deltaTime * 60;
+            sideSide = defaultSpeed;
            nowPressed[3] = true;} 
         else{
             nowPressed[3] = false;
@@ -204,9 +210,14 @@ private void checkKeyboardInput(){
         // }
 
         //this produces a vector that gives WASD movement relative to the world coords.
+       
         playerVel = transform.forward * forBack + transform.right * sideSide;
-            
 
+        //Debug.Log(playerVel);
+        if(playerVel.magnitude > 5){
+            //Debug.Log("Limiting player speed!");
+            playerVel *= 5 / playerVel.magnitude;
+        }
         //TODO: add a velocity check ehre as well
             
 //            sideSide * Time.deltaTime * walkSpeedMult, 0,  * Time.deltaTime * walkSpeedMult);
