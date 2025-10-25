@@ -10,6 +10,7 @@ public class PlayerMove : MonoBehaviour
     public KeyControl backKey;
     public KeyControl leftKey;
     public KeyControl rightKey;
+    public KeyControl spaceBar;
     
     //
 
@@ -37,8 +38,7 @@ public class PlayerMove : MonoBehaviour
     private Rigidbody playerbody;
     public Transform playerCam;
     private Vector3 playerVel; //reference to current velocity, grabbed at the start of every cycle and updated at the end in executemotion()
-
-
+    private bool onFloorThisFrame = false;
     
     //friction values
     // public float fric = 10; //used in, get this, friction calculations 
@@ -57,7 +57,8 @@ public class PlayerMove : MonoBehaviour
 
       leftKey = Keyboard.current[Key.A];
       rightKey = Keyboard.current[Key.D];
-
+      
+      spaceBar = Keyboard.current[Key.Space];
       
 
       //lock the cursor so we don't move out of window 
@@ -75,6 +76,14 @@ public class PlayerMove : MonoBehaviour
         
         checkKeyboardInput();
 
+
+        //are we on the floor?
+        if (Physics.Raycast(playerbody.transform.position, Vector3.down, 0.8f)){
+            onFloorThisFrame = true;
+        } else {
+            onFloorThisFrame = false;
+        }
+
         //give a boost once we've passed the threshhold. this emulates momentum, but in a simpler way.
         if(forBack > speedThresh){
             forSpeed = speedThreshBuff; 
@@ -89,6 +98,7 @@ public class PlayerMove : MonoBehaviour
         if(sideSide < speedThresh){
             sideSpeed = speedThreshBuff; 
         }
+        
 
 
 
@@ -115,16 +125,8 @@ public class PlayerMove : MonoBehaviour
         wasPressed[3] = nowPressed[3];
 
 
-        //finally, clamp our movement. this does little right now but will be very important later when we have things like sprinting/aiming/crouching movespeed modifiers
-        forBack = Mathf.Clamp(forBack, 0-maxWalkSpeed, maxWalkSpeed);
-        sideSide = Mathf.Clamp(sideSide, 0-maxWalkSpeed, maxWalkSpeed);
 
-        //go through with what we've done
-        calcMotion();
-        executeMotion();
-        //handleFriction();
- 
-        //finally, apply a speed limit
+        //apply a speed limit
         Vector3 horizontalVel = playerbody.linearVelocity;
         horizontalVel.y = 0; //don't take into account falling
         if(horizontalVel.magnitude > maxSpeed){
@@ -133,6 +135,27 @@ public class PlayerMove : MonoBehaviour
             horizontalVel.y = playerbody.linearVelocity.y;
             playerbody.linearVelocity = horizontalVel;
         }
+
+        //check and try jump. This won't affect our speed limit since it only checks horizontal movement.
+        if(spaceBar.wasPressedThisFrame && onFloorThisFrame){
+            doJump();
+        }
+
+
+        //finally, clamp our movement. this does little right now but will be very important later when we have things like sprinting/aiming/crouching movespeed modifiers
+        forBack = Mathf.Clamp(forBack, 0-maxWalkSpeed, maxWalkSpeed);
+        sideSide = Mathf.Clamp(sideSide, 0-maxWalkSpeed, maxWalkSpeed);
+
+        if(! onFloorThisFrame){ //if we're not touching the floor, don't give maneuverability. this does still do minor "input" calcs which can sort of be abused
+                                // but it REALLY doesn't offer too much extra movement so I'm leaving it
+            return;
+        }
+        //go through with what we've done
+        calcMotion();
+        executeMotion();
+        //handleFriction();
+ 
+
 
     }
 
@@ -240,14 +263,15 @@ private void checkKeyboardInput(){
     }
 
 
-    //depreciated since I added the waspressed and nowpressed arrays which will refresh situationally
+    private void doJump(){
+        Vector3 velocityGrab;
 
-    // private void refreshKeys(){ //refresh our keypresses for the next frame
+        velocityGrab = playerbody.linearVelocity;
+        velocityGrab.y = 6;
+        playerbody.linearVelocity = velocityGrab;
 
-    //     forBack = 0;
-    //     sideSide = 0;
-    // }
 
-    //destroy(ENTITY); //queue for deletion
+    }
 }
+
 
