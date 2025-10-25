@@ -32,19 +32,21 @@ public class HealthGeneric : MonoBehaviour, IHealthInterface
         Debug.Log("An object has taken " + incomingDam.damageAmount + " Damage!");
 
         double reducedDamage = incomingDam.damageAmount - ourArmor;
-        // if(reducedDamage < 1){ //if we fully "block" the attack, take 1 point of health and 1 point of armor.
-        //     reducedDamage = 1;
-        //     reduceArmor(1);
+        if(reducedDamage < 1){ //if we fully "block" the attack, take 1 point of health and 1 point of armor.
+            reducedDamage = 1;
+            reduceArmor(1);
 
-        //     Debug.Log("An object's armor  " + ourArmor + " has fully defeated " + incomingDam.damageAmount + " incoming damage");
-        // }
+            Debug.Log("An object's armor  " + ourArmor + " has fully defeated " + incomingDam.damageAmount + " incoming damage");
+        }
 
-
-        // //armor is lost at 1/durability times incoming damage. 
-        // if(incomingDam.damageAmount > ourArmor * armorDurability){ //if damage is greater than armor * 2
-        //     double armorLoss = incomingDam.damageAmount * (1/armorDurability);
-
-        // }
+        if(ourArmor < 0){
+        //armor is lost at 1/durability times incoming damage. High durability
+        if(incomingDam.damageAmount > ourArmor * armorDurability){ 
+            double armorLoss = incomingDam.damageAmount * (1/armorDurability);
+            Debug.Log("An object's armor  " + ourArmor + " was defeated by " + incomingDam.damageAmount + " damage and reduced by " + armorLoss + " points");
+            reduceArmor(armorLoss);
+           
+        }}
         
 
 
@@ -56,8 +58,20 @@ public class HealthGeneric : MonoBehaviour, IHealthInterface
         return false;
     }
 
-    private reduceArmor(double amtBy){
+    private void reduceArmor(double amtBy){
+        if(ourArmor == 0){
+            return;
+        }
 
+        if(amtBy < 1){
+            amtBy = 1;
+        }
+
+        ourArmor -= amtBy;
+
+        if(ourArmor < 0){
+            ourArmor = 0;
+        }
     }
 
     public double GetHealth(){
