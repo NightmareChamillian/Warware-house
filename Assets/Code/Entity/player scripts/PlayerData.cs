@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Player : Entity, IOnBulletHit
+public class PlayerData : Entity, IOnBulletHit
 {
     public HealthGeneric healthHolder;
     // public double health;
