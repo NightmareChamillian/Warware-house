@@ -116,7 +116,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 941340131356953297, guid: 4122da28c228340a59b6bd0f18ca6add, type: 3}
       propertyPath: m_Name
-      value: Player Variant
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 2155312211996721945, guid: 4122da28c228340a59b6bd0f18ca6add, type: 3}
       propertyPath: m_Height
@@ -138,6 +138,10 @@ PrefabInstance:
       propertyPath: m_Center.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2155312211996721945, guid: 4122da28c228340a59b6bd0f18ca6add, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 13400000, guid: 85fc576c1ce9f2041860827f1b1215d9, type: 2}
     - target: {fileID: 2278462065826638845, guid: 4122da28c228340a59b6bd0f18ca6add, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.56
@@ -197,6 +201,14 @@ PrefabInstance:
     - target: {fileID: 4041658579594223721, guid: 4122da28c228340a59b6bd0f18ca6add, type: 3}
       propertyPath: m_FOVAxisMode
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7441828169344345025, guid: 4122da28c228340a59b6bd0f18ca6add, type: 3}
+      propertyPath: maxSpeed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7441828169344345025, guid: 4122da28c228340a59b6bd0f18ca6add, type: 3}
+      propertyPath: maxWalkSpeed
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

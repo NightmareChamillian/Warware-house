@@ -16,13 +16,14 @@ public class PlayerMove : MonoBehaviour
     public Key customMapping = Key.UpArrow;//public variable so you can see the names of new keys you want to assign
 
     //speed variables
-    public float defaultSpeed = 1f; //default starting speed. sidespeed and forspeed get set to this.
+    public float defaultSpeed = 5f; //default starting speed. sidespeed and forspeed get set to this.
     private float sideSpeed = 1f; 
     private float forSpeed = 1f; 
-    public float speedThresh = 20f; //threshhold required to give an agility bonus
-    public float speedThreshBuff = 3f; //agility bonus
+    public float speedThresh = 10f; //threshhold required to give an agility bonus
+    public float speedThreshBuff = 1f; //agility bonus
     public float maxWalkSpeed = 26; //what's the MOST speed we can get up to?
-    public float walkSpeedMult = 75; //speed buff per frame
+    public float walkSpeedMult = 5; //speed buff per frame
+    public float maxSpeed = 20f;
 
     //we use these to track WASD inputs
     private bool[] nowPressed = {false,false,false,false}; //same as below but for the now
@@ -37,10 +38,12 @@ public class PlayerMove : MonoBehaviour
     public Transform playerCam;
     private Vector3 playerVel; //reference to current velocity, grabbed at the start of every cycle and updated at the end in executemotion()
 
+
+    
     //friction values
-    public float fric = 10; //used in, get this, friction calculations 
-    public float stopSpeed = 40; // value we scale speed by to apply friction. if too high, won't work, if too low, will severely limit speed
-    public float speedFactor = 1; //how much do we want the player speed to be factored in? called control in most quakelike calculations.
+    // public float fric = 10; //used in, get this, friction calculations 
+    // public float stopSpeed = 40; // value we scale speed by to apply friction. if too high, won't work, if too low, will severely limit speed
+    // public float speedFactor = 1; //how much do we want the player speed to be factored in? called control in most quakelike calculations.
 
     // setup function
     void Start()
@@ -119,9 +122,17 @@ public class PlayerMove : MonoBehaviour
         //go through with what we've done
         calcMotion();
         executeMotion();
-        handleFriction();
-
-        
+        //handleFriction();
+ 
+        //finally, apply a speed limit
+        Vector3 horizontalVel = playerbody.linearVelocity;
+        horizontalVel.y = 0; //don't take into account falling
+        if(horizontalVel.magnitude > maxSpeed){
+            //Debug.Log("Limiting player speed!");
+            horizontalVel *= maxSpeed / horizontalVel.magnitude;
+            horizontalVel.y = playerbody.linearVelocity.y;
+            playerbody.linearVelocity = horizontalVel;
+        }
 
     }
 
@@ -172,6 +183,8 @@ private void checkKeyboardInput(){
         //this produces a vector that gives WASD movement relative to the world coords.
         playerVel = transform.forward * forBack + transform.right * sideSide;
             
+
+        //TODO: add a velocity check ehre as well
             
 //            sideSide * Time.deltaTime * walkSpeedMult, 0,  * Time.deltaTime * walkSpeedMult);
 
@@ -190,37 +203,38 @@ private void checkKeyboardInput(){
 
 
     }
-    //handle friction, affect the rigidbody's speed directly. uses Sylphstream-like calculations, which are in turn based off source-like calculations, which are in turn based off quake code
-    void handleFriction(){
-        float playerSpeed = playerbody.linearVelocity.magnitude; //current speed of player. we don't ever actually change this, just use it as a quick reference.
+    
+    //applies sourcelike friction, but unity has their own friction, so this is weird and redundant
+    // void handleFriction(){
+    //     float playerSpeed = playerbody.linearVelocity.magnitude; //current speed of player. we don't ever actually change this, just use it as a quick reference.
 
-        if(playerSpeed <= 0){ //player doesn't have speed, return early
-            return;
-        }
+    //     if(playerSpeed <= 0){ //player doesn't have speed, return early
+    //         return;
+    //     }
 
-        if(playerSpeed > stopSpeed){
-            speedFactor = playerSpeed / stopSpeed;
-        }
+    //     if(playerSpeed > stopSpeed){
+    //         speedFactor = playerSpeed / stopSpeed;
+    //     }
 
-        float drop = fric * Time.deltaTime * speedFactor; //calculate a drop in speed based on how fast we're going, our universal friction, and delta time
-        float newSpeed = playerSpeed - drop; //our new ideal speed
+    //     float drop = fric * Time.deltaTime * speedFactor; //calculate a drop in speed based on how fast we're going, our universal friction, and delta time
+    //     float newSpeed = playerSpeed - drop; //our new ideal speed
 
-        if(newSpeed < 0){
-            newSpeed = 0; //don't ever acheive negative speed from friction
-        }
+    //     if(newSpeed < 0){
+    //         newSpeed = 0; //don't ever acheive negative speed from friction
+    //     }
 
-        if(newSpeed != playerSpeed){
-            newSpeed /= playerSpeed; //get proportion of old speed we're using
-        }
+    //     if(newSpeed != playerSpeed){
+    //         newSpeed /= playerSpeed; //get proportion of old speed we're using
+    //     }
 
-        playerbody.linearVelocity *= newSpeed; //scale player's true speed by said value
+    //     playerbody.linearVelocity *= newSpeed; //scale player's true speed by said value
 
-    }
+    // }
 
     private void executeMotion(){ // Check our pressed keys, move, and refresh. Doesn't do much, YET.
 
         //transform.Translate(sideSide * Time.deltaTime, 0, forBack * Time.deltaTime); //stays local to the object
-        playerbody.AddForce(playerVel, ForceMode.Acceleration);
+        playerbody.AddForce(playerVel, ForceMode.Acceleration); //i shouldn't do this actually
         //gameObject.GetComponent<Rigidbody>().linearVelocity = playerVel;
         return;
     }
