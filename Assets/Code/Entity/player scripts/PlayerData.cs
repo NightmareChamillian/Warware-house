@@ -49,5 +49,6 @@ public class PlayerData : Entity, IOnBulletHit
     public void IncreasePlayerLevel(int increase)
     {
         playerLevel += increase;
+        Debug.Log("Player level increased by " + increase + ", it is now " +  playerLevel);
     }
 }

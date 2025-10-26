@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,11 +20,16 @@ public class EnemySpawner : MonoBehaviour
     //Array of spawnpoints, to be retrieved from the ISpawnpoints script attached to the room
     private Vector3[] spawnpoints;
 
-    //Hardcoded for now. Would be a variable number according to the player's level.
-    private int playerLevel = 8;
+    //Player data
+    private GameObject playerObject;
+    private PlayerData playerData;
+    private int playerLevel = 0;
 
     //Keeps track of all spawned enemies
     private List<GameObject> spawnedEnemies;
+
+    //Room name. Would probably be read from the spawnpointsScript
+    private string roomName = "Unnamed Room";
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -31,6 +37,16 @@ public class EnemySpawner : MonoBehaviour
         spawnpointsScript = GetComponent<ISpawnpoints>();
         spawnpoints = spawnpointsScript.getSpawnpoints();
         spawnedEnemies = new List<GameObject>();
+        //Get the player data
+        playerObject = GameObject.Find("Player");
+        if (playerObject != null)
+        {
+            playerData = playerObject.GetComponent<PlayerData>();
+        }
+        else
+        {
+            Debug.Log("playerObject not found");
+        }
     }
 
     // Update is called once per frame
@@ -42,6 +58,8 @@ public class EnemySpawner : MonoBehaviour
     public void SpawnEnemies()
     {
         Debug.Log("Called SpawnEnemies");
+        playerLevel = playerData.GetPlayerLevel();
+        Debug.Log("Player level is " + playerLevel);
         Vector3[] spawnpointsCopy = (Vector3[])spawnpoints.Clone();
         int combinedDangerLevels = 0;
 
@@ -55,7 +73,7 @@ public class EnemySpawner : MonoBehaviour
         while ( combinedDangerLevels < playerLevel && spawnedEnemies.Count < spawnpointsCopy.Length)
         {
             //Choose a random enemy
-            int randomIndex = Random.Range(0, enemyPrefabs.Count);
+            int randomIndex = UnityEngine.Random.Range(0, enemyPrefabs.Count);
             GameObject selectedEnemy = enemyPrefabs[randomIndex];
             if(selectedEnemy != null)
             {
@@ -64,13 +82,17 @@ public class EnemySpawner : MonoBehaviour
                     //Check if the enemy is valid to be spawned
                     if (selectedEnemyScript.GetDangerLevel() + combinedDangerLevels <= playerLevel)
                     {
-                        //Spawn the enemy and update trackers
+                        //Spawn the enemy
                         Debug.Log("Spawning " + selectedEnemyScript.GetName() + " at " + spawnpointsCopy[spawnedEnemies.Count]);
                         Debug.Log(selectedEnemyScript.GetName() + " has danger level " + selectedEnemyScript.GetDangerLevel());
                         GameObject newEnemy = Instantiate(selectedEnemy, spawnpointsCopy[spawnedEnemies.Count], Quaternion.identity);
+                        //Updated the room's combined danger Level
                         combinedDangerLevels += selectedEnemyScript.GetDangerLevel();
-                        Debug.Log("combinedDangerLevels is " + combinedDangerLevels);
+                        //Debug.Log("combinedDangerLevels is " + combinedDangerLevels);
+                        //Add the new enemy to the room's array of spawned enemies
                         spawnedEnemies.Add(newEnemy);
+                        //Set the new enemy's origin to this script
+                        newEnemy.GetComponent<Enemy>().SetOrigin(this);
                     }
                     else
                     {
@@ -103,5 +125,31 @@ public class EnemySpawner : MonoBehaviour
             }
             spawnedEnemies.RemoveAt(i);
         }
+    }
+
+    //Enemy scripts call this function when they die. Removes the enemy from the list of spawned enemies.
+    //Then checks if all enemies have died. If so, calls RoomCleared()
+    public bool EnemyDeath(GameObject killedEnemy)
+    {
+        Debug.Log("Calling EnemyDeath()");
+        spawnedEnemies.Remove(killedEnemy);
+        bool allDead = spawnedEnemies.Count == 0;
+        Debug.Log("allDead is " +  allDead);
+        if (allDead == true)
+        {
+            RoomCleared();
+        }
+        return allDead;
+    }
+    
+    //Called when all enemies in the room have died. Increases the player's level. Hardcoded for now.
+    public void RoomCleared()
+    {
+        playerData.IncreasePlayerLevel(3);
+    }
+
+    public string GetRoomName()
+    {
+        return roomName;
     }
 }

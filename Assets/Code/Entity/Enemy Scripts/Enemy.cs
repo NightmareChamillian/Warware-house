@@ -20,9 +20,11 @@ public class Enemy : MonoBehaviour, IOnBulletHit
     //The prefab used for spawning
     //public GameObject enemyObjectPrefab;
 
-
     public HealthGeneric healthHolder;
     //public HealthGeneric healthHolder;
+
+    //The script that instantiated this Enemy
+    public EnemySpawner spawnerOrigin;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     public void Start()
@@ -74,6 +76,16 @@ public class Enemy : MonoBehaviour, IOnBulletHit
     {
         Debug.Log(ENEMY_NAME + " Died");
         Destroy(enemyObject);
+        if(spawnerOrigin != null)
+        {
+            spawnerOrigin.EnemyDeath(enemyObject);
+        }
+    }
+
+    public void SetOrigin(EnemySpawner spawnerScript)
+    {
+        spawnerOrigin = spawnerScript;
+        Debug.Log(ENEMY_NAME + " origin set to " +  spawnerOrigin.GetRoomName());
     }
 
     public double GetHealth()

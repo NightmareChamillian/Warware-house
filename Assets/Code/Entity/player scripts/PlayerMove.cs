@@ -205,22 +205,23 @@ private void checkKeyboardInput(){
 
         //this produces a vector that gives WASD movement relative to the world coords.
         playerVel = transform.forward * forBack + transform.right * sideSide;
-            
+        //Debug.Log("Desired change in motion: " + playerVel + " VS current linear velocity " + playerbody.linearVelocity);
+
 
         //TODO: add a velocity check ehre as well
-            
-//            sideSide * Time.deltaTime * walkSpeedMult, 0,  * Time.deltaTime * walkSpeedMult);
 
-       //what we need to do is factor in where the player's facing to this new playerVel vector.
-       // float rotationAmount = Mathf.Rad2Deg * gameObject.transform.rotation.y;
+        //            sideSide * Time.deltaTime * walkSpeedMult, 0,  * Time.deltaTime * walkSpeedMult);
+
+        //what we need to do is factor in where the player's facing to this new playerVel vector.
+        // float rotationAmount = Mathf.Rad2Deg * gameObject.transform.rotation.y;
         //Debug.Log(rotationAmount);
-       //playerVel = Quaternion.AngleAxis(rotationAmount, Vector3.down) * playerVel; //well use quarternion.angleaxis for this, around the vert axis
+        //playerVel = Quaternion.AngleAxis(rotationAmount, Vector3.down) * playerVel; //well use quarternion.angleaxis for this, around the vert axis
 
 
         //sourcelike calculations but I didn't want to do full sourcelike so scrapping them blehhhh
         // Vector3 forwardVec = Vector3.Cross(Vector3.forward, -gameObject.transform.right);
         // Vector3 sideVec = Vector3.Cross(Vector3.forward, forwardVec);
-        
+
         // Vector3 wishDir = forBack * forwardVec + sideSide * sideVec;
         // playerVel = wishDir; //will this work? no idea!
 
