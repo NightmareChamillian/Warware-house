@@ -7,6 +7,8 @@ public class PlayerData : Entity, IOnBulletHit
 
     private int playerLevel;
 
+    private int enemiesKilled;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -50,5 +52,16 @@ public class PlayerData : Entity, IOnBulletHit
     {
         playerLevel += increase;
         Debug.Log("Player level increased by " + increase + ", it is now " +  playerLevel);
+    }
+
+    public int GetEnemiesKilled()
+    {
+        return enemiesKilled;
+    }
+
+    public void EnemyKilled()
+    {
+        enemiesKilled++;
+        Debug.Log("Player has killed " + enemiesKilled + " enemies");
     }
 }

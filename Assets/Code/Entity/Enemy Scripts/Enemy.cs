@@ -13,9 +13,11 @@ public class Enemy : MonoBehaviour, IOnBulletHit
     //The physical game object of the enemy in the scene 
     public GameObject enemyObject;
 
-    //The player object and their position
+    //The player object, their position, and their data
     public GameObject playerObject;
     public Transform player;
+    public PlayerData playerData;
+
 
     //The prefab used for spawning
     //public GameObject enemyObjectPrefab;
@@ -51,6 +53,7 @@ public class Enemy : MonoBehaviour, IOnBulletHit
         if (playerObject != null)
         {
             player = playerObject.transform;
+            playerData = player.GetComponent<PlayerData>();
         }
         else
         {
@@ -80,6 +83,7 @@ public class Enemy : MonoBehaviour, IOnBulletHit
         {
             spawnerOrigin.EnemyDeath(enemyObject);
         }
+        playerData.EnemyKilled();
     }
 
     public void SetOrigin(EnemySpawner spawnerScript)
