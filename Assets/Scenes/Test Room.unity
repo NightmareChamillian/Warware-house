@@ -1035,7 +1035,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 880072051}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1312,7 +1312,7 @@ Transform:
   m_GameObject: {fileID: 959441638}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -64.9, y: 0.04, z: -11.27}
+  m_LocalPosition: {x: -121.4, y: 0.04, z: 17.79}
   m_LocalScale: {x: 2, y: 0.05, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1996,7 +1996,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31ccdd6a43a2ce644b9af283bbbed9bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyPrefabs: []
+  enemyPrefabs:
+  - {fileID: 9103877084258455116, guid: 886832234058554448306391b66dc4f0, type: 3}
+  - {fileID: 6517155209655734486, guid: aa3e18ededaffa64b8c18cdca6715549, type: 3}
+  - {fileID: 9103877084258455116, guid: 886832234058554448306391b66dc4f0, type: 3}
 --- !u!1 &1490840511 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -8261680326512576386, guid: 22993a9532f5b43bcbf755600c0bf5a0, type: 3}
