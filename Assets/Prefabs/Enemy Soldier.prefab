@@ -115,8 +115,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7050066181540089452}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.98960555, z: 0, w: 0.14380868}
-  m_LocalPosition: {x: -1.4, y: 0.9553417, z: -0.51}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -138,12 +138,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   armor: 0
-  ENEMY_NAME: UNNAMED ENEMY
+  ENEMY_NAME: ENEMY SOLDIER
   dangerLevel: 1
   enemyObject: {fileID: 0}
   playerObject: {fileID: 0}
   player: {fileID: 0}
+  playerData: {fileID: 0}
   healthHolder: {fileID: 0}
+  spawnerOrigin: {fileID: 0}
   weapon: {fileID: 8413928786108492278}
   obstructionMask:
     serializedVersion: 2
@@ -210,6 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 376d8c64624b68d4d8a220589be1c171, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  armorDurability: 0
 --- !u!1 &8413928786108492278
 GameObject:
   m_ObjectHideFlags: 0
