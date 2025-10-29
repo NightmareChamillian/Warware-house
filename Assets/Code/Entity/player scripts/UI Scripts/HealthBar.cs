@@ -4,18 +4,22 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
+    public Transform healthBar;
     public Image filledBar;
+
     public Gradient healthColorGradient;
 
     public double maxHP;
-    public double maxArmor;
     public double currentHP;
-    public double currentArmor;
     public HealthGeneric healthHolder;
 
     void Start()
     {
         maxHP = 100;
+
+        // setting health bar component
+        healthBar = transform.Find("Health Bar");
+        filledBar = healthBar.GetComponent<Image>();
 
         // retrieves health holder from player object
         healthHolder = transform.parent.parent.GetComponent<HealthGeneric>();
@@ -28,7 +32,6 @@ public class HealthBar : MonoBehaviour
     void Update()
     {
         currentHP = healthHolder.GetHealth();
-        currentArmor = healthHolder.GetArmor();
         
         // Debug.Log("current HP: " + currentHP);
         filledBar.fillAmount = (float)(currentHP / maxHP);
