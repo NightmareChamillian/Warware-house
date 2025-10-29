@@ -22,7 +22,7 @@ public class EnemyTurret : Enemy
     new void Start()
     {
         //Initialized values for the turret
-        health = 20;
+        health = 15;
         armor = 0;
         ENEMY_NAME = "Turret Enemy";
         dangerLevel = 2;

@@ -116,11 +116,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef105cd4824c64f9a8be4df1896342f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 25
+  health: 10
   armor: 0
   ENEMY_NAME: UNNAMED ENEMY
   dangerLevel: 1
   enemyObject: {fileID: 3155236427702166974}
+  playerObject: {fileID: 0}
+  player: {fileID: 0}
+  playerData: {fileID: 0}
+  healthHolder: {fileID: 0}
+  spawnerOrigin: {fileID: 0}
 --- !u!114 &4836951652492498392
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,6 +138,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 376d8c64624b68d4d8a220589be1c171, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  armorDurability: 0
 --- !u!1001 &6054702174940932752
 PrefabInstance:
   m_ObjectHideFlags: 0
