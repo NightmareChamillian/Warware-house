@@ -80,6 +80,7 @@ public class EnemySpawner : MonoBehaviour
                 Enemy selectedEnemyScript = selectedEnemy.GetComponent<Enemy>();
                 if (selectedEnemyScript != null) {
                     //Check if the enemy is valid to be spawned
+                    //Assumes there is always a valid enemy (dangerLevel >= 1)
                     if (selectedEnemyScript.GetDangerLevel() + combinedDangerLevels <= playerLevel)
                     {
                         //Spawn the enemy
