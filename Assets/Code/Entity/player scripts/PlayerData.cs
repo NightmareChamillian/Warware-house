@@ -1,3 +1,5 @@
+using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class PlayerData : Entity, IOnBulletHit
@@ -9,6 +11,10 @@ public class PlayerData : Entity, IOnBulletHit
 
     private int enemiesKilled;
 
+    [SerializeField] private Transform player;
+    [SerializeField] private GameObject enemyKilledTextObject;
+    [SerializeField] private TMP_Text enemyKilledText;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -17,6 +23,10 @@ public class PlayerData : Entity, IOnBulletHit
         healthHolder.SetHealthAndArmor(maxHP, maxArmor);
 
         playerLevel = 4;
+
+        player = transform;
+        enemyKilledTextObject = GameObject.Find("Enemy Killed Text");
+        enemyKilledText = enemyKilledTextObject.GetComponent<TMP_Text>();
     }
 
     // Update is called once per frame
@@ -25,22 +35,20 @@ public class PlayerData : Entity, IOnBulletHit
 
     }
 
+    private IEnumerator DisplayKillConfirmed()
+    {
+        enemyKilledText.text = "Enemy Killed!";
+        enemyKilledText.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(1);
+
+        enemyKilledText.gameObject.SetActive(false);
+    }
+
     public void OnBulletHit(DamageInfo damageInfo)
     {
-        /* AJ: testing out new health system */
         healthHolder.TakeDamage(damageInfo);
-
-        // if (healthHolder.GetHealth() <= 0)
-        // {
-        //     Debug.Log("Player Died! Game Over :(");
-        // }
-        
         return;
-
-        /* AJ: old health */
-        // health -= damageInfo.damageAmount;
-        // Debug.Log("health is " + health.ToString());
-        // return;
     }
 
     public int GetPlayerLevel()
@@ -63,5 +71,7 @@ public class PlayerData : Entity, IOnBulletHit
     {
         enemiesKilled++;
         Debug.Log("Player has killed " + enemiesKilled + " enemies");
+
+        StartCoroutine(DisplayKillConfirmed());
     }
 }
