@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour, IOnBulletHit
 {
     //Default variables for an enemy who doesn't initialize their own.
-    public double health = 10; //This needs to be set in the inspector if changed
+    public double health = 5; //This needs to be set in the inspector if changed
     public double armor = 0;
     public string ENEMY_NAME = "UNNAMED ENEMY";
     public int dangerLevel = 1;

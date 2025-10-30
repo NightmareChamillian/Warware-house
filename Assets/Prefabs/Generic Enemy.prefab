@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef105cd4824c64f9a8be4df1896342f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 10
+  health: 5
   armor: 0
   ENEMY_NAME: UNNAMED ENEMY
   dangerLevel: 1
