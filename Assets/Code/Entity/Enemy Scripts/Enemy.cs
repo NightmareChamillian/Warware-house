@@ -47,7 +47,7 @@ public class Enemy : MonoBehaviour, IOnBulletHit
         //healthHolder = new HealthGeneric(health, armor);
         healthHolder = gameObject.GetComponent<HealthGeneric>();
         healthHolder.SetHealthAndArmor(health, armor);
-        Debug.Log(ENEMY_NAME + " is at position " + transform.position);
+        //Debug.Log(ENEMY_NAME + " is at position " + transform.position);
         //Set the player value
         playerObject = GameObject.Find("Player");
         if (playerObject != null)
@@ -77,7 +77,7 @@ public class Enemy : MonoBehaviour, IOnBulletHit
 
     public void EnemyDeath()
     {
-        Debug.Log(ENEMY_NAME + " Died");
+        //Debug.Log(ENEMY_NAME + " Died");
         Destroy(enemyObject);
         if(spawnerOrigin != null)
         {
@@ -89,7 +89,7 @@ public class Enemy : MonoBehaviour, IOnBulletHit
     public void SetOrigin(EnemySpawner spawnerScript)
     {
         spawnerOrigin = spawnerScript;
-        Debug.Log(ENEMY_NAME + " origin set to " +  spawnerOrigin.GetRoomName());
+        //Debug.Log(ENEMY_NAME + " origin set to " +  spawnerOrigin.GetRoomName());
     }
 
     public double GetHealth()

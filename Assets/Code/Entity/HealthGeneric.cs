@@ -30,7 +30,7 @@ public class HealthGeneric : MonoBehaviour, IHealthInterface
 
     public bool TakeDamage(DamageInfo incomingDam){ //take damage, and return true if it was lethal
 
-        Debug.Log("An object has taken " + incomingDam.damageAmount + " Damage!");
+        //Debug.Log("An object has taken " + incomingDam.damageAmount + " Damage!");
 
         double reducedDamage = incomingDam.damageAmount - ourArmor;
         if(reducedDamage < 1){ //if we fully "block" the attack, take 1 point of health and 1 point of armor.

@@ -100,7 +100,7 @@ public class PlayerMovementTweak : MonoBehaviour
 
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
 
-        Debug.Log("Jumping");
+        //Debug.Log("Jumping");
     }
     
     void ResetJump()
