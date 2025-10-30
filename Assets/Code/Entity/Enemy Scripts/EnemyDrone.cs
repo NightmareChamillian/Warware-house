@@ -28,7 +28,7 @@ public class EnemyDrone : Enemy
     new void Start()
     {
         //Initialized values for the drone
-        health = 10;
+        health = 5;
         armor = 0;
         ENEMY_NAME = "Drone Enemy";
         dangerLevel = 4;

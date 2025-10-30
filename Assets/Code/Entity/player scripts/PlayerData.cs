@@ -22,7 +22,7 @@ public class PlayerData : Entity, IOnBulletHit
         healthHolder = gameObject.GetComponent<HealthGeneric>();
         healthHolder.SetHealthAndArmor(maxHP, maxArmor);
 
-        playerLevel = 4;
+        playerLevel = 1;
 
         player = transform;
         enemyKilledTextObject = GameObject.Find("Enemy Killed Text");

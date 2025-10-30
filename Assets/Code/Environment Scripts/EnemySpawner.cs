@@ -146,7 +146,7 @@ public class EnemySpawner : MonoBehaviour
     //Called when all enemies in the room have died. Increases the player's level. Hardcoded for now.
     public void RoomCleared()
     {
-        playerData.IncreasePlayerLevel(3);
+        playerData.IncreasePlayerLevel(5);
     }
 
     public string GetRoomName()
