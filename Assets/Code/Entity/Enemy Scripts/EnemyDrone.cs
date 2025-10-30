@@ -31,7 +31,7 @@ public class EnemyDrone : Enemy
         health = 5;
         armor = 0;
         ENEMY_NAME = "Drone Enemy";
-        dangerLevel = 4;
+        dangerLevel = 10;
         //Set the player value
         /*
         GameObject playerObject = GameObject.Find("Player");

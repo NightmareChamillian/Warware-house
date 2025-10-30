@@ -31,7 +31,7 @@ public class EnemySoldier : Enemy
         health = 10;
         armor = 0;
         ENEMY_NAME = "Soldier Enemy";
-        dangerLevel = 3;
+        dangerLevel = 5;
         //Set the player value
         /*
         GameObject playerObject = GameObject.Find("Player");
