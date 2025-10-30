@@ -9,6 +9,9 @@ public class PlayerData : Entity, IOnBulletHit
 
     private int playerLevel;
 
+    //Temporary solution to displaying level increase
+    private int oldPlayerLevel;
+
     private int enemiesKilled;
 
     [SerializeField] private Transform player;
@@ -23,6 +26,7 @@ public class PlayerData : Entity, IOnBulletHit
         healthHolder.SetHealthAndArmor(maxHP, maxArmor);
 
         playerLevel = 1;
+        oldPlayerLevel = 1;
 
         player = transform;
         enemyKilledTextObject = GameObject.Find("Enemy Killed Text");
@@ -37,12 +41,25 @@ public class PlayerData : Entity, IOnBulletHit
 
     private IEnumerator DisplayKillConfirmed()
     {
-        enemyKilledText.text = "Enemy Killed!";
-        enemyKilledText.gameObject.SetActive(true);
+        //Check if level increased (temporary solution)
+        if(oldPlayerLevel != playerLevel)
+        {
+            enemyKilledText.text = "Level Increased!";
+            oldPlayerLevel = playerLevel;
+            enemyKilledText.gameObject.SetActive(true);
 
-        yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(3); 
+        }
+        else
+        {
+            enemyKilledText.text = "Enemy Killed!";
+            enemyKilledText.gameObject.SetActive(true);
+
+            yield return new WaitForSeconds(1);
+        }
 
         enemyKilledText.gameObject.SetActive(false);
+
     }
 
     public void OnBulletHit(DamageInfo damageInfo)
