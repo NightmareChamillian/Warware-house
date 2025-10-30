@@ -109,6 +109,6 @@ public class EnemyDrone : Enemy
     public override int GetDangerLevel()
     {
         //Hardcoded for now since I can't figure out how to override the variable outside of a function
-        return 4;
+        return 10;
     }
 }
