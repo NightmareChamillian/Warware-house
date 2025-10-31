@@ -1,3 +1,8 @@
+10/31(Rowan):
+Added target that shoots when fired on, currently only in my test room
+Added behavior support for limited magazine depth for weaponcontrollers
+Several methods in the enemy generic class can now be overridden for differing behavior
+Imported car models
 10/24 (Martin):
 Updated EnemyDrone and EnemySoldier.
 Added Enemy Drone and Enemy Soldier to Enemy Spawner.
