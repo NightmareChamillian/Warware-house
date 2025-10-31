@@ -11,10 +11,13 @@ public class HealthGeneric : MonoBehaviour, IHealthInterface
     public double armorDurability = 1.5; //rather than being 1:1, an armor being "defeated" is based off this ratio of incoming damage, on the armor's side.
                                          //ideally keep this between 1 and 5
 
+    public double startingHealth = 10;
+    public double startingArmor = 3;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        ourHealth = startingHealth;
+        ourArmor = startingArmor;
     }
 
     // Update is called once per frame
@@ -24,6 +27,11 @@ public class HealthGeneric : MonoBehaviour, IHealthInterface
     }
 
     public HealthGeneric(double startingHealth, double startingArmor){
+        ourHealth = startingHealth;
+        ourArmor = startingArmor;
+    }
+
+    public HealthGeneric(){
         ourHealth = startingHealth;
         ourArmor = startingArmor;
     }
