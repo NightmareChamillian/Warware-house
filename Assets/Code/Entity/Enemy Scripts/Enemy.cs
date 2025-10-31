@@ -64,7 +64,7 @@ public class Enemy : MonoBehaviour, IOnBulletHit
     //Called whenever the enemy is hit by a bullet
     //Calculates Test Target's health after a bullet hit
     //If health reaches 0, calls EnemyDeath()
-    public void OnBulletHit(DamageInfo info)
+    public virtual void OnBulletHit(DamageInfo info)
     {
         bool damResult = healthHolder.TakeDamage(info);
         Debug.Log(ENEMY_NAME + " hit for " + info.damageAmount + " damage. " +
@@ -75,7 +75,7 @@ public class Enemy : MonoBehaviour, IOnBulletHit
         }
     }
 
-    public void EnemyDeath()
+    public virtual void EnemyDeath()
     {
         //Debug.Log(ENEMY_NAME + " Died");
         Destroy(enemyObject);
