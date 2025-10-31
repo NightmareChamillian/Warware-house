@@ -24,7 +24,7 @@ public class PlayerAttack : MonoBehaviour
     // references to other game objects
     public Transform ourCamera; //reference to the camera
     public GameObject weapon;
-    WeaponController weaponController;
+    IShooter shooter;
 
     void Start()
     {
@@ -33,16 +33,19 @@ public class PlayerAttack : MonoBehaviour
         mouseSecondary = Mouse.current.rightButton;
         pauseKey = Keyboard.current[Key.Escape];
 
-        // get the weapon controller script from our weapon
-        weaponController = weapon.GetComponent<WeaponController>();
+        // get the shooter script from our weapon
+        shooter = weapon.GetComponent<IShooter>();
     }
 
     void Update()
     {
-        // behavior for semi-automatics, shoot only when we click
-        if (mousePrimary.wasPressedThisFrame)
+        if (mousePrimary.isPressed)
         {
-            weaponController.Shoot();
+            shooter.Shoot();
+        }
+        else if (mousePrimary.wasReleasedThisFrame)
+        {
+            shooter.LetGoOfShootButton();
         }
         
         if (mouseSecondary.wasPressedThisFrame){
