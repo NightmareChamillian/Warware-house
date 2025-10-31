@@ -20,11 +20,12 @@ public class PlayerAttack : MonoBehaviour
     public ButtonControl mousePrimary;
     public ButtonControl mouseSecondary;
     public KeyControl pauseKey;
+    public KeyControl reloadKey;
 
     // references to other game objects
     public Transform ourCamera; //reference to the camera
     public GameObject weapon;
-    IShooter shooter;
+    Shooter shooter;
 
     void Start()
     {
@@ -32,9 +33,10 @@ public class PlayerAttack : MonoBehaviour
         mousePrimary = Mouse.current.leftButton;
         mouseSecondary = Mouse.current.rightButton;
         pauseKey = Keyboard.current[Key.Escape];
+        reloadKey = Keyboard.current[Key.R];
 
         // get the shooter script from our weapon
-        shooter = weapon.GetComponent<IShooter>();
+        shooter = weapon.GetComponent<Shooter>();
     }
 
     void Update()
@@ -47,16 +49,25 @@ public class PlayerAttack : MonoBehaviour
         {
             shooter.LetGoOfShootButton();
         }
-        
-        if (mouseSecondary.wasPressedThisFrame){
-            if (aimingSights){
+
+        if (mouseSecondary.wasPressedThisFrame)
+        {
+            if (aimingSights)
+            {
                 aimingSights = false;
                 mouseSensitivity = 0.2f;
-                
-            }else{
+
+            }
+            else
+            {
                 aimingSights = true;
                 mouseSensitivity = 0.07f;
             }
+        }
+        
+        if (reloadKey.wasPressedThisFrame)
+        {
+            shooter.Reload();
         }
 
         if (pauseKey.wasPressedThisFrame)

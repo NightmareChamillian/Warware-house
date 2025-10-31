@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class ShooterStraight : MonoBehaviour, IShooter
+public class Shooter : MonoBehaviour
 {
     public GameObject bulletPrefab;
     public float roundsPerMinute;
@@ -14,21 +14,48 @@ public class ShooterStraight : MonoBehaviour, IShooter
     public bool isAutomatic = false;
     bool letGoOfShootButton = true;
 
+    public bool limitedAmmo = false;
+    public int magSize = 10;
+    int currentBulletsInMag;
+
+    public void Start()
+    {
+        currentBulletsInMag = magSize;
+    }
+
     public void Shoot()
     {
+        // for semi autos
         if (!isAutomatic && !letGoOfShootButton)
         {
             return;
         }
+
         if (canFire)
         {
+            // if mag empty we cant shoot
+            if (currentBulletsInMag <= 0)
+                return;
+
             Bullet bullet = Instantiate(bulletPrefab, transform.position + 1.5f * transform.forward, transform.rotation).GetComponent<Bullet>();
             StartCoroutine(Cooldown());
 
             DoEffects();
 
             letGoOfShootButton = false;
+
+            if (limitedAmmo)
+                currentBulletsInMag--;
         }
+    }
+
+    public void Reload()
+    {
+        if (!limitedAmmo)
+            return;
+
+        // change this when we have ammo pool, would refill less if not enough ammo for full mag
+        currentBulletsInMag = magSize;
     }
 
     private IEnumerator Cooldown()
@@ -49,6 +76,7 @@ public class ShooterStraight : MonoBehaviour, IShooter
             casings.Emit(1);
     }
     
+    // used to track when the player pulls/releases trigger for automatic vs semi
     public void LetGoOfShootButton()
     {
         letGoOfShootButton = true;
